@@ -1,6 +1,6 @@
 public class Cat extends Animal{
 
-    int attack = 6;
+    int strength = 6;
     public int agility = 5;
 
     public int getAgility() {
@@ -11,13 +11,14 @@ public class Cat extends Animal{
         this.agility = agility;
     }
 
-    void claw(){
-        attack = 10;
-        bear.healthPoint = bear.healthPoint - attack;
+    public int claw(){
+        int claw = strength+4;
+        return claw;
     }
 
-    void avoid(){
-        String avoidComment = "곰의 공격을 회피합니다.";
+    public String avoid(){
+        String avoid = "곰의 공격을 회피합니다.";
+        return avoid;
     }
 
 }

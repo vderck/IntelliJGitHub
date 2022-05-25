@@ -1,14 +1,13 @@
 public class Animal {
-    Bear bear = new Bear();
-    public int attack = 7;
+    public int strength = 7;
     public int healthPoint = 20;
 
-    public int getAttack() {
-        return attack;
+    public int getStrength() {
+        return strength;
     }
 
-    public void setAttack(int attack){
-        this.attack = attack;
+    public void setStrength(int strength){
+        this.strength = strength;
     }
 
     public int getHealthPoint(){
@@ -20,7 +19,7 @@ public class Animal {
     }
 
     void attack(){
-        bear.healthPoint = bear.healthPoint - attack;
+
     }
 
     void die(){

@@ -1,13 +1,13 @@
 public class Bear {
-    public int attack = 12;
+    public int strength = 12;
     public int healthPoint = 100;
 
-    public int getAttack() {
-        return attack;
+    public int getStrength() {
+        return strength;
     }
 
-    public void setAttack(int attack){
-        this.attack = attack;
+    public void setStrength(int strength){
+        this.strength = strength;
     }
 
     public int getHealthPoint(){
@@ -16,5 +16,10 @@ public class Bear {
 
     public  void setHealthPoint(int healthPoint){
         this.healthPoint = healthPoint;
+    }
+
+    public int bearKnuckle(){
+        int ultimateAttack = strength + 8;
+        return ultimateAttack;
     }
 }
