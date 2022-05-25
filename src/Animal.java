@@ -1,6 +1,6 @@
 public class Animal {
     public int strength = 7;
-    public int healthPoint = 20;
+    public int healthPoint = 200;
 
     public int getStrength() {
         return strength;
@@ -19,7 +19,6 @@ public class Animal {
     }
 
     void attack(){
-
     }
 
     void die(){

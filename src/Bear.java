@@ -1,14 +1,6 @@
 public class Bear {
     public int strength = 12;
-    public int healthPoint = 100;
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public void setStrength(int strength){
-        this.strength = strength;
-    }
+    public int healthPoint = 1000;
 
     public int getHealthPoint(){
         return healthPoint;
