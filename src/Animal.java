@@ -18,7 +18,9 @@ public class Animal {
         this.healthPoint = healthPoint;
     }
 
-    void attack(){
+    // 밑에 부분 전부 사용 할 것
+    public int attack(){
+        return strength;
     }
 
     void die(){
@@ -29,10 +31,6 @@ public class Animal {
 
     void withDraw(){
             String withDrawComment = "현재 전투에서 도망칩니다.";
-    }
-
-
-    public static void main(String[] args) {
     }
 }
 
