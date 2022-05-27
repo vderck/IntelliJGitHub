@@ -1,24 +1,15 @@
 public class Cat extends Animal{
 
-    int strength = 6;
+    //민첩
     public int agility = 5;
 
-    public int getAgility() {
-        return agility;
-    }
-
-    public void setAgility(int agility){
-        this.agility = agility;
-    }
-
+    //할퀸다
     public int claw(){
-        int claw = strength+4;
-        return claw;
+        return strength + agility*4;
     }
 
-    public String avoid(){
-        String avoid = "곰의 공격을 회피합니다.";
-        return avoid;
+    //회피한다
+    public boolean avoid(){
+        return Math.random() < 0.5;
     }
-
 }

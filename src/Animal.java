@@ -1,14 +1,10 @@
 public class Animal {
-    public int strength = 7;
-    public int healthPoint = 200;
 
-    public int getStrength() {
-        return strength;
-    }
+    // 공격력
+    public int strength = 10;
 
-    public void setStrength(int strength){
-        this.strength = strength;
-    }
+    //체력
+    public int healthPoint = 100;
 
     public int getHealthPoint(){
         return healthPoint;
@@ -18,19 +14,9 @@ public class Animal {
         this.healthPoint = healthPoint;
     }
 
-    // 밑에 부분 전부 사용 할 것
+    //공격한다
     public int attack(){
         return strength;
-    }
-
-    void die(){
-        if (healthPoint <= 0){
-            String deathComment = "현재 전투중인 동물이 사망하였습니다.";
-        }
-    }
-
-    void withDraw(){
-            String withDrawComment = "현재 전투에서 도망칩니다.";
     }
 }
 

@@ -1,14 +1,15 @@
 public class Aligator extends Animal {
+    //비열함
     public int visciousness = 10;
 
+    //꼬리로 때린다
     public int whipWithTail() {
-        int whipWithTail = strength + 10;
-        return whipWithTail;
+        return strength + visciousness*4;
     }
 
+    //반사한다
     public int reflect(int element) {
-        int reflect = element * 2;
-        return reflect;
+        return element * 4;
     }
 
 }

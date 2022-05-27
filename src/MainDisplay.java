@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Timer;
@@ -19,6 +17,7 @@ public class MainDisplay extends JFrame {
         Aligator aligator = new Aligator();
         Bear bear = new Bear();
         LifeCount lifeCount = new LifeCount();
+        TimerCondition timerCondition = new TimerCondition();
 
         // 패널 구성
         JPanel gameOpeningMenu = new JPanel();
@@ -42,18 +41,19 @@ public class MainDisplay extends JFrame {
         add(gameOpeningMenu);
 
         //오프닝 메뉴 설명하기 창
-        JTextArea gameDescriptionText = new JTextArea(" 베어헌트는 주어진 4마리의 동물로" +
-                                                      "\n 곰을 사냥하는 턴제 RPG 게임입니다." +
-                                                      "\n 사용할 수 있는 각각의 동물은" +
-                                                      "\n 고양이,개,원숭이,악어가 있으며," +
-                                                      "\n 각자마다 독특한 고유 스킬을 보유하고 있습니다." +
-                                                      "\n 4마리의 동물이 전멸하기전에 곰을 사냥시," +
-                                                      "\n 게임에 승리합니다." +
-                                                      "\n 모든 조작은 마우스 클릭으로 이루어집니다." +
-                                                      "\n 시작하기 버튼을 눌러주세요.");
+        JTextArea gameDescriptionText = new JTextArea("""
+                베어헌트는 주어진 4마리의 동물로
+                곰을 사냥하는 턴제 RPG 게임입니다.
+                사용할 수 있는 각각의 동물은
+                고양이,개,원숭이,악어가 있으며,
+                각 캐릭터마다 독특한 고유 스킬을 보유하고 있습니다.
+                4마리의 동물이 전멸하기전에 곰을 사냥시,
+                게임에 승리합니다.
+                더 높은 점수로 배틀에 승리해보세요!
+                모든 조작은 마우스 클릭으로 이루어집니다.
+                시작하기 버튼을 눌러주세요.""".indent(1));
+
         add(gameDescriptionText);
-
-
 
         // 전투 과정 디스플레이 (텍스트 형식)
         JTextArea battleTextDipslay = new JTextArea(" 전투 진행 상황을 표시합니다.\n 캐릭터를 선택해주세요" );
@@ -269,75 +269,74 @@ public class MainDisplay extends JFrame {
         add(monkeySkillList);
         add(aligatorSkillList);
 
+        //전투 시간 타이머
+        JLabel battleTime = new JLabel("120 초");
+
+        add(battleTime);
+        //전투 통합 프레임
+        DrawRectangleFrame drawRectangleFrame = new DrawRectangleFrame();
+
+        add(drawRectangleFrame);
         // 게임 시작하기
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openingLabel.setVisible(false);
-                gameOpeningMenu.setVisible(false);
-                gameDescriptionText.setVisible(false);
+        startButton.addActionListener(e -> {
+            timerCondition.setInitialTime(120);
 
-                lifeLabelOne.setVisible(true);
-                lifeLabelTwo.setVisible(true);
-                lifeLabelThree.setVisible(true);
-                lifeLabelFour.setVisible(true);
+            openingLabel.setVisible(false);
+            gameOpeningMenu.setVisible(false);
+            gameDescriptionText.setVisible(false);
 
-                animalStatus.setVisible(true);
-                enemyStatus.setVisible(true);
-                battleTextDisplayPane.setVisible(true);
-                animalList.setVisible(true);
-            }
+            lifeLabelOne.setVisible(true);
+            lifeLabelTwo.setVisible(true);
+            lifeLabelThree.setVisible(true);
+            lifeLabelFour.setVisible(true);
+
+            animalStatus.setVisible(true);
+            enemyStatus.setVisible(true);
+            battleTextDisplayPane.setVisible(true);
+            animalList.setVisible(true);
         });
 
         // 게임 설명듣기
-        gameDescriptionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameDescriptionText.setVisible(true);
-            }
-        });
+        gameDescriptionButton.addActionListener(e -> gameDescriptionText.setVisible(true));
 
         // 캐릭터 선택 → 고양이 선택
-        catBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                catBtn.setForeground(Color.white);
-                catBtn.setBackground(Color.gray);
-                dogBtn.setForeground(Color.white);
-                dogBtn.setBackground(Color.black);
-                monkeyBtn.setForeground(Color.white);
-                monkeyBtn.setBackground(Color.black);
-                aligatorBtn.setForeground(Color.white);
-                aligatorBtn.setBackground(Color.black);
+        catBtn.addActionListener(e -> {
+            catBtn.setForeground(Color.white);
+            catBtn.setBackground(Color.gray);
+            dogBtn.setForeground(Color.white);
+            dogBtn.setBackground(Color.black);
+            monkeyBtn.setForeground(Color.white);
+            monkeyBtn.setBackground(Color.black);
+            aligatorBtn.setForeground(Color.white);
+            aligatorBtn.setBackground(Color.black);
 
-                int strength = cat.strength;
-                strengthDisplay.setText("Strength " + strength);
+            int strength = cat.strength;
+            strengthDisplay.setText("Strength " + strength);
 
-                int healthPoint = cat.healthPoint;
-                healthPointDisplay.setText("HeathPoint " + healthPoint);
+            int healthPoint = cat.healthPoint;
+            healthPointDisplay.setText("HeathPoint " + healthPoint);
 
-                int agility = cat.agility;
-                agilityDisplay.setText("Agility "+ agility);
+            int agility = cat.agility;
+            agilityDisplay.setText("Agility "+ agility);
 
-                catIconLabel.setVisible(true);
-                dogIconLabel.setVisible(false);
-                monkeyIconLabel.setVisible(false);
-                aligatorIconLabel.setVisible(false);
+            catIconLabel.setVisible(true);
+            dogIconLabel.setVisible(false);
+            monkeyIconLabel.setVisible(false);
+            aligatorIconLabel.setVisible(false);
 
-                catSkillList.setVisible(true);
-                dogSkillList.setVisible(false);
-                monkeySkillList.setVisible(false);
-                aligatorSkillList.setVisible(false);
+            catSkillList.setVisible(true);
+            dogSkillList.setVisible(false);
+            monkeySkillList.setVisible(false);
+            aligatorSkillList.setVisible(false);
 
-                agilityDisplay.setVisible(true);
-                defenseDisplay.setVisible(false);
-                wisdomDisplay.setVisible(false);
-                viciousnessDisplay.setVisible(false);
+            agilityDisplay.setVisible(true);
+            defenseDisplay.setVisible(false);
+            wisdomDisplay.setVisible(false);
+            viciousnessDisplay.setVisible(false);
 
-                String characterChoice ="\n 고양이를 선택하셨습니다.\n 스킬을 선택해주세요.";
-                battleTextDipslay.append(characterChoice);
+            String characterChoice ="\n 고양이를 선택하셨습니다.\n 스킬을 선택해주세요.";
+            battleTextDipslay.append(characterChoice);
 
-            }
         });
 
         // 고양이 스킬 리스트
@@ -351,8 +350,8 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 catBasicAttack.setBackground(Color.gray);
-                battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ cat.strength+"의 데미지를 입힙니다.");
-                bear.setHealthPoint(bear.healthPoint-cat.strength);
+                battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ cat.attack()+"의 데미지를 입힙니다.");
+                bear.setHealthPoint(bear.healthPoint-cat.attack());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
             }
 
@@ -459,9 +458,41 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 catUltimateAttack.setBackground(Color.gray);
-                battleTextDipslay.append("\n 회피하기를 시전합니다!" +"\n 곰이 필살기로 공격하려합니다." + "\n 곰의 모든 공격을 회피했습니다!");
-                cat.setHealthPoint(cat.healthPoint);
-                healthPointDisplay.setText("HealthPoint :"+ cat.healthPoint);
+                battleTextDipslay.append("""
+                        회피하기를 시전합니다!
+                        곰이 필살기로 공격하려합니다.""".indent(1));
+                if (cat.avoid()){
+                    battleTextDipslay.append("\n 곰의 공격을 회피했습니다!");
+                    cat.setHealthPoint(cat.healthPoint);
+                    healthPointDisplay.setText("HealthPoint :"+ cat.healthPoint);
+                } else {
+                    battleTextDipslay.append("\n 회피에 실패했습니다.");
+                    battleTextDipslay.append("\n " + bear.bearKnuckle() +"의 데미지를 입었습니다.");
+                    cat.setHealthPoint(cat.healthPoint - bear.bearKnuckle());
+                    healthPointDisplay.setText("HealthPoint :"+ cat.healthPoint);
+
+                    if (cat.getHealthPoint() <= 0){
+                        battleTextDipslay.append("\n 야아아아옹~~! \n 고양이 캐릭터가 장렬하게 사망했습니다! \n 다른 캐릭터를 골라주세요.");
+
+                        catIconLabel.setVisible(false);
+                        catBtn.setVisible(false);
+                        catSkillList.setVisible(false);
+
+                        lifeCount.setLifeNum(lifeCount.lifeNum-1);
+                        int animalLife = lifeCount.getLifeNum();
+
+                        switch (animalLife) {
+                            case 0 -> lifeLabelOne.setVisible(false);
+                            case 1 -> lifeLabelTwo.setVisible(false);
+                            case 2 -> lifeLabelThree.setVisible(false);
+                            case 3 -> lifeLabelFour.setVisible(false);
+                            default -> {
+                            }
+                        }
+                    }
+                }
+
+
             }
 
             @Override
@@ -527,46 +558,43 @@ public class MainDisplay extends JFrame {
 
 
         // 캐릭터 선택 → 강아지 선택
-        dogBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                catBtn.setForeground(Color.white);
-                catBtn.setBackground(Color.black);
-                dogBtn.setForeground(Color.white);
-                dogBtn.setBackground(Color.gray);
-                monkeyBtn.setForeground(Color.white);
-                monkeyBtn.setBackground(Color.black);
-                aligatorBtn.setForeground(Color.white);
-                aligatorBtn.setBackground(Color.black);
+        dogBtn.addActionListener(e -> {
+            catBtn.setForeground(Color.white);
+            catBtn.setBackground(Color.black);
+            dogBtn.setForeground(Color.white);
+            dogBtn.setBackground(Color.gray);
+            monkeyBtn.setForeground(Color.white);
+            monkeyBtn.setBackground(Color.black);
+            aligatorBtn.setForeground(Color.white);
+            aligatorBtn.setBackground(Color.black);
 
-                int strength = dog.strength;
-                strengthDisplay.setText("Strength " + strength);
+            int strength = dog.strength;
+            strengthDisplay.setText("Strength " + strength);
 
-                int healthPoint = dog.healthPoint;
-                healthPointDisplay.setText("HeathPoint " + healthPoint);
+            int healthPoint = dog.healthPoint;
+            healthPointDisplay.setText("HeathPoint " + healthPoint);
 
-                int defense = dog.defense;
-                defenseDisplay.setText("Defense "+ defense);
+            int defense = dog.defense;
+            defenseDisplay.setText("Defense "+ defense);
 
-                catIconLabel.setVisible(false);
-                dogIconLabel.setVisible(true);
-                monkeyIconLabel.setVisible(false);
-                aligatorIconLabel.setVisible(false);
+            catIconLabel.setVisible(false);
+            dogIconLabel.setVisible(true);
+            monkeyIconLabel.setVisible(false);
+            aligatorIconLabel.setVisible(false);
 
-                catSkillList.setVisible(false);
-                dogSkillList.setVisible(true);
-                monkeySkillList.setVisible(false);
-                aligatorSkillList.setVisible(false);
+            catSkillList.setVisible(false);
+            dogSkillList.setVisible(true);
+            monkeySkillList.setVisible(false);
+            aligatorSkillList.setVisible(false);
 
-                agilityDisplay.setVisible(false);
-                defenseDisplay.setVisible(true);
-                wisdomDisplay.setVisible(false);
-                viciousnessDisplay.setVisible(false);
+            agilityDisplay.setVisible(false);
+            defenseDisplay.setVisible(true);
+            wisdomDisplay.setVisible(false);
+            viciousnessDisplay.setVisible(false);
 
-                String characterChoice ="\n 강아지를 선택하셨습니다.\n 스킬을 선택해주세요.";
-                battleTextDipslay.append(characterChoice);
-                
-            }
+            String characterChoice ="\n 강아지를 선택하셨습니다.\n 스킬을 선택해주세요.";
+            battleTextDipslay.append(characterChoice);
+
         });
 
         // 강아지 스킬리스트
@@ -581,8 +609,8 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 dogBasicAttack.setBackground(Color.gray);
-                battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ dog.strength+"의 데미지를 입힙니다.");
-                bear.setHealthPoint(bear.healthPoint-dog.strength);
+                battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ dog.attack()+"의 데미지를 입힙니다.");
+                bear.setHealthPoint(bear.healthPoint-dog.attack());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
             }
 
@@ -691,11 +719,11 @@ public class MainDisplay extends JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 dogUltimateAttack.setBackground(Color.black);
-                battleTextDipslay.append("\n 곰이 베어너클을 시전합니다! \n" + bear.bearKnuckle()+"의 데미지로 공격합니다.");
-                dog.setHealthPoint(dog.healthPoint - bear.bearKnuckle() + dog.defense);
+                battleTextDipslay.append("\n 곰이 베어너클을 시전합니다! \n " + bear.bearKnuckle()+"의 데미지로 공격합니다.");
+                dog.setHealthPoint(dog.healthPoint - bear.bearKnuckle() + dog.defend());
                 healthPointDisplay.setText("HealthPoint :"+ dog.healthPoint);
-                battleTextDipslay.append("\n 방어하기로 인해 " + dog.defense+"의 데미지를 경감합니다.");
-                battleTextDipslay.append("\n 오직 " + (bear.bearKnuckle()-dog.defense) +"의 데미지를 받습니다.");
+                battleTextDipslay.append("\n 방어하기로 인해 " + dog.defend()+"의 데미지를 경감합니다.");
+                battleTextDipslay.append("\n 오직 " + (bear.bearKnuckle()-dog.defend()) +"의 데미지를 받습니다.");
 
                 if (dog.getHealthPoint() <= 0){
                     battleTextDipslay.append("\n 깨개갱 깨개갱~~! \n 강아지 캐릭터가 비참히 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -775,45 +803,42 @@ public class MainDisplay extends JFrame {
         });
 
         // 캐릭터 선택 → 원숭이 선택
-        monkeyBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                catBtn.setForeground(Color.white);
-                catBtn.setBackground(Color.black);
-                dogBtn.setForeground(Color.white);
-                dogBtn.setBackground(Color.black);
-                monkeyBtn.setForeground(Color.white);
-                monkeyBtn.setBackground(Color.gray);
-                aligatorBtn.setForeground(Color.white);
-                aligatorBtn.setBackground(Color.black);
+        monkeyBtn.addActionListener(e -> {
+            catBtn.setForeground(Color.white);
+            catBtn.setBackground(Color.black);
+            dogBtn.setForeground(Color.white);
+            dogBtn.setBackground(Color.black);
+            monkeyBtn.setForeground(Color.white);
+            monkeyBtn.setBackground(Color.gray);
+            aligatorBtn.setForeground(Color.white);
+            aligatorBtn.setBackground(Color.black);
 
-                int strength = monkey.strength;
-                strengthDisplay.setText("Strength " + strength);
+            int strength = monkey.strength;
+            strengthDisplay.setText("Strength " + strength);
 
-                int healthPoint = monkey.healthPoint;
-                healthPointDisplay.setText("HeathPoint " + healthPoint);
+            int healthPoint = monkey.healthPoint;
+            healthPointDisplay.setText("HeathPoint " + healthPoint);
 
-                int wisdom = monkey.wisdom;
-                wisdomDisplay.setText("Wisdom "+ wisdom);
+            int wisdom = monkey.wisdom;
+            wisdomDisplay.setText("Wisdom "+ wisdom);
 
-                catIconLabel.setVisible(false);
-                dogIconLabel.setVisible(false);
-                monkeyIconLabel.setVisible(true);
-                aligatorIconLabel.setVisible(false);
+            catIconLabel.setVisible(false);
+            dogIconLabel.setVisible(false);
+            monkeyIconLabel.setVisible(true);
+            aligatorIconLabel.setVisible(false);
 
-                catSkillList.setVisible(false);
-                dogSkillList.setVisible(false);
-                monkeySkillList.setVisible(true);
-                aligatorSkillList.setVisible(false);
+            catSkillList.setVisible(false);
+            dogSkillList.setVisible(false);
+            monkeySkillList.setVisible(true);
+            aligatorSkillList.setVisible(false);
 
-                defenseDisplay.setVisible(false);
-                agilityDisplay.setVisible(false);
-                wisdomDisplay.setVisible(true);
-                viciousnessDisplay.setVisible(false);
+            defenseDisplay.setVisible(false);
+            agilityDisplay.setVisible(false);
+            wisdomDisplay.setVisible(true);
+            viciousnessDisplay.setVisible(false);
 
-                String characterChoice ="\n 원숭이를 선택하셨습니다.\n 스킬을 선택해주세요.";
-                battleTextDipslay.append(characterChoice);
-            }
+            String characterChoice ="\n 원숭이를 선택하셨습니다.\n 스킬을 선택해주세요.";
+            battleTextDipslay.append(characterChoice);
         });
 
         // 원숭이 스킬 리스트
@@ -827,8 +852,8 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 monkeyBasicAttack.setBackground(Color.gray);
-                battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ monkey.strength+"의 데미지를 입힙니다.");
-                bear.setHealthPoint(bear.healthPoint-monkey.strength);
+                battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ monkey.attack()+"의 데미지를 입힙니다.");
+                bear.setHealthPoint(bear.healthPoint-monkey.attack());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
             }
 
@@ -1032,45 +1057,42 @@ public class MainDisplay extends JFrame {
         });
 
         // 캐릭터 선택 → 악어 선택
-        aligatorBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                catBtn.setForeground(Color.white);
-                catBtn.setBackground(Color.black);
-                dogBtn.setForeground(Color.white);
-                dogBtn.setBackground(Color.black);
-                monkeyBtn.setForeground(Color.white);
-                monkeyBtn.setBackground(Color.black);
-                aligatorBtn.setForeground(Color.white);
-                aligatorBtn.setBackground(Color.gray);
+        aligatorBtn.addActionListener(e -> {
+            catBtn.setForeground(Color.white);
+            catBtn.setBackground(Color.black);
+            dogBtn.setForeground(Color.white);
+            dogBtn.setBackground(Color.black);
+            monkeyBtn.setForeground(Color.white);
+            monkeyBtn.setBackground(Color.black);
+            aligatorBtn.setForeground(Color.white);
+            aligatorBtn.setBackground(Color.gray);
 
-                int strength = aligator.strength;
-                strengthDisplay.setText("Strength " + strength);
+            int strength = aligator.strength;
+            strengthDisplay.setText("Strength " + strength);
 
-                int healthPoint = aligator.healthPoint;
-                healthPointDisplay.setText("HeathPoint " + healthPoint);
+            int healthPoint = aligator.healthPoint;
+            healthPointDisplay.setText("HeathPoint " + healthPoint);
 
-                int visciousness = aligator.visciousness;
-                viciousnessDisplay.setText("Visciousness "+ visciousness);
+            int visciousness = aligator.visciousness;
+            viciousnessDisplay.setText("Visciousness "+ visciousness);
 
-                catIconLabel.setVisible(false);
-                dogIconLabel.setVisible(false);
-                monkeyIconLabel.setVisible(false);
-                aligatorIconLabel.setVisible(true);
+            catIconLabel.setVisible(false);
+            dogIconLabel.setVisible(false);
+            monkeyIconLabel.setVisible(false);
+            aligatorIconLabel.setVisible(true);
 
-                catSkillList.setVisible(false);
-                dogSkillList.setVisible(false);
-                monkeySkillList.setVisible(false);
-                aligatorSkillList.setVisible(true);
+            catSkillList.setVisible(false);
+            dogSkillList.setVisible(false);
+            monkeySkillList.setVisible(false);
+            aligatorSkillList.setVisible(true);
 
-                defenseDisplay.setVisible(false);
-                agilityDisplay.setVisible(false);
-                wisdomDisplay.setVisible(false);
-                viciousnessDisplay.setVisible(true);
+            defenseDisplay.setVisible(false);
+            agilityDisplay.setVisible(false);
+            wisdomDisplay.setVisible(false);
+            viciousnessDisplay.setVisible(true);
 
-                String characterChoice ="\n 악어를 선택하셨습니다.\n 스킬을 선택해주세요.";
-                battleTextDipslay.append(characterChoice);
-            }
+            String characterChoice ="\n 악어를 선택하셨습니다.\n 스킬을 선택해주세요.";
+            battleTextDipslay.append(characterChoice);
         });
 
         // 악어 스킬 리스트
@@ -1084,8 +1106,8 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 aligatorBasicAttack.setBackground(Color.gray);
-                battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ aligator.strength+"의 데미지를 입힙니다.");
-                bear.setHealthPoint(bear.healthPoint-aligator.strength);
+                battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ aligator.attack()+"의 데미지를 입힙니다.");
+                bear.setHealthPoint(bear.healthPoint-aligator.attack());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
             }
 
@@ -1276,9 +1298,47 @@ public class MainDisplay extends JFrame {
             }
         });
 
+        //시간 제한 타이머
+        Timer limitTimer = new Timer();
+
+        final int[] timePassed = {timerCondition.getInitialTime()};
+        TimerTask limitTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                timePassed[0]--;
+                battleTime.setText(timePassed[0] +" 초");
+
+                if (timePassed[0] <= 0){
+                    int lastScoreSum = cat.healthPoint + dog.healthPoint+ monkey.healthPoint+ aligator.healthPoint;
+                    lastScore.setText("당신의 최종점수는 "+ lastScoreSum + "입니다.");
+
+                    lifeLabelOne.setVisible(false);
+                    lifeLabelTwo.setVisible(false);
+                    lifeLabelThree.setVisible(false);
+                    lifeLabelFour.setVisible(false);
+
+                    animalList.setVisible(false);
+                    catSkillList.setVisible(false);
+                    dogSkillList.setVisible(false);
+                    monkeySkillList.setVisible(false);
+                    aligatorSkillList.setVisible(false);
+
+                    animalStatus.setVisible(false);
+                    enemyStatus.setVisible(false);
+                    bearIconLabel.setVisible(false);
+                    battleTextDisplayPane.setVisible(false);
+                    gameoverEnding.setVisible(true);
+
+                    limitTimer.cancel();
+                }
+            }
+        };
+
+        limitTimer.schedule(limitTimerTask,2000,1000);
+
         //엔딩 타이머
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
+        Timer endingTimer = new Timer();
+        TimerTask endingTimerTask = new TimerTask() {
             @Override
             public void run() {
                 if(lifeCount.lifeNum == 0){
@@ -1289,7 +1349,7 @@ public class MainDisplay extends JFrame {
                     bearIconLabel.setVisible(false);
                     battleTextDisplayPane.setVisible(false);
                     gameoverEnding.setVisible(true);
-                    timer.cancel();
+                    endingTimer.cancel();
                 } else if (bear.getHealthPoint() <= 0){
                     int lastScoreSum = cat.healthPoint + dog.healthPoint+ monkey.healthPoint+ aligator.healthPoint;
                     lastScore.setText("당신의 최종점수는 "+ lastScoreSum + "입니다.");
@@ -1310,19 +1370,21 @@ public class MainDisplay extends JFrame {
                     bearIconLabel.setVisible(false);
                     battleTextDisplayPane.setVisible(false);
                     gameVictoryEnding.setVisible(true);
-                    timer.cancel();
+                    endingTimer.cancel();
                 }
             }
         };
-        timer.schedule(timerTask,0,1000); // 태스크발동, 0ms 즉시 실행, 1000ms 매구간 실행
+        endingTimer.schedule(endingTimerTask,0,1000); // 태스크발동, 0ms 즉시 실행, 1000ms 매구간 실행
 
         //폰트
+        Font basicFontFourTeen = new Font("맑은 고딕", Font.BOLD,14);
         Font notoSansBoldFourteen = new Font("Noto Sans KR", Font.BOLD,14);
         Font notoSansBoldTwenty = new Font("Noto Sans KR", Font.BOLD,20);
 
         startButton.setFont(notoSansBoldTwenty);
         gameDescriptionButton.setFont(notoSansBoldTwenty);
         gameDescriptionText.setFont(notoSansBoldTwenty);
+        battleTime.setFont(basicFontFourTeen);
         lastScore.setFont(notoSansBoldTwenty);
 
         strengthDisplay.setFont(notoSansBoldFourteen);
@@ -1422,11 +1484,13 @@ public class MainDisplay extends JFrame {
         aligatorSkillList.setLayout(new FlowLayout(FlowLayout.LEFT,20,10));
 
         // 컴포넌트 배치
-        setLayout(null);   // 반드시 배치전에 null로 지정
+        setLayout(null);   // 반드시 배치전에 null 지정
         gameOpeningMenu.setBounds(150,220,300,80);
         gameDescriptionText.setBounds(70,350, 450,260);
         gameoverEnding.setBounds(0,0,600,800);
         gameVictoryEnding.setBounds(0,0,600,800);
+        drawRectangleFrame.setBounds(0,0,600,800);
+        battleTime.setBounds(300,-10,100,100);
         lastScore.setBounds(165,200,600,200);
         lifeLabelOne.setBounds(25,380,30,30);
         lifeLabelTwo.setBounds(45,380,30,30);
@@ -1438,7 +1502,7 @@ public class MainDisplay extends JFrame {
         aligatorIconLabel.setBounds(0,60,300,300);
         bearIconLabel.setBounds(360,-110,600,600);
         animalStatus.setBounds(25,320,140,100);
-        enemyStatus.setBounds(440,20,200,40);
+        enemyStatus.setBounds(440,20,130,40);
         animalList.setBounds(0,500,600,100);
         catSkillList.setBounds(0,600,600,100);
         dogSkillList.setBounds(0,600,600,100);
@@ -1469,7 +1533,7 @@ public class MainDisplay extends JFrame {
         setTitle("베어 헌트");
         setVisible(true); // setVisible 함수가 화면설정 이전으로 가게되면 화면 구성이전의 화면들은 보여지지 않음
 
-        // Exit시 프로그램 종료
+        // Exit 시 프로그램 종료
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 

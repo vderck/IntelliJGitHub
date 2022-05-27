@@ -1,18 +1,15 @@
 public class Dog extends Animal{
 
-    int strength = 8;
+    //방어력
     public int defense = 5;
 
-    public int getDefense() {
-        return defense;
-    }
-
-    public void setDefense(int defense){
-        this.defense = defense;
-    }
-
+    //물어뜯는다
     public int bite(){
-        int bite = strength+4;
-        return bite;
+        return strength*3;
+    }
+
+    //방어한다
+    public int defend() {
+        return strength*2;
     }
 }

@@ -1,5 +1,9 @@
 public class Bear {
-    public int strength = 12;
+
+    //공격력
+    public int strength = 30;
+
+    //체력
     public int healthPoint = 1000;
 
     public int getHealthPoint(){
@@ -10,6 +14,7 @@ public class Bear {
         this.healthPoint = healthPoint;
     }
 
+    //베어너클(필살기)을 시전한다.
     public int bearKnuckle(){
         int ultimateAttack = strength + 8;
         return ultimateAttack;
