@@ -83,8 +83,8 @@ public class MainDisplay extends JFrame {
         add(lifeLabelFour);
 
         // 아군 기본상태 표시
-        JLabel strengthDisplay = new JLabel("Strength: 5");
-        JLabel healthPointDisplay = new JLabel("HealthPoint: 200");
+        JLabel strengthDisplay = new JLabel("Strength: 10");
+        JLabel healthPointDisplay = new JLabel("HealthPoint: 100");
         JLabel agilityDisplay = new JLabel("");
         JLabel defenseDisplay = new JLabel("");
         JLabel wisdomDisplay = new JLabel("");
@@ -108,6 +108,9 @@ public class MainDisplay extends JFrame {
 
         add(enemyStatus);
 
+        //공격 이펙트
+        AttackEffect attackEffect = new AttackEffect();                                                                 //실행시 attackEffect.launchEffect() 로 실행
+        add(attackEffect);
         //엔딩 점수
         JLabel lastScore = new JLabel("");
         add(lastScore);
@@ -350,6 +353,7 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 catBasicAttack.setBackground(Color.gray);
+                attackEffect.launchEffect();
                 battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ cat.attack()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-cat.attack());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
@@ -404,6 +408,7 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 catSpecialAttack.setBackground(Color.gray);
+                attackEffect.launchEffect();
                 battleTextDipslay.append("\n 할퀴기를 시전합니다!" + "\n 곰에게 "+ cat.claw()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-cat.claw());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
@@ -609,6 +614,7 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 dogBasicAttack.setBackground(Color.gray);
+                attackEffect.launchEffect();
                 battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ dog.attack()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-dog.attack());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
@@ -661,6 +667,7 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 dogSpecialAttack.setBackground(Color.gray);
+                attackEffect.launchEffect();
                 battleTextDipslay.append("\n 물어뜯기를 시전합니다!" + "\n 곰에게 "+ dog.bite()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-dog.bite());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
@@ -852,6 +859,7 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 monkeyBasicAttack.setBackground(Color.gray);
+                attackEffect.launchEffect();
                 battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ monkey.attack()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-monkey.attack());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
@@ -906,6 +914,7 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 monkeySpecialAttack.setBackground(Color.gray);
+                attackEffect.launchEffect();
                 battleTextDipslay.append("\n 열매를 던집니다!" + "\n 곰에게 "+ monkey.throwFruit()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-monkey.throwFruit());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
@@ -1106,6 +1115,7 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 aligatorBasicAttack.setBackground(Color.gray);
+                attackEffect.launchEffect();
                 battleTextDipslay.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ aligator.attack()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-aligator.attack());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
@@ -1158,6 +1168,7 @@ public class MainDisplay extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 aligatorSpecialAttack.setBackground(Color.gray);
+                attackEffect.launchEffect();
                 battleTextDipslay.append("\n 꼬리로 후려칩니다!" + "\n 곰에게 "+ aligator.whipWithTail()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-aligator.whipWithTail());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
@@ -1216,6 +1227,7 @@ public class MainDisplay extends JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 aligatorUltimateAttack.setBackground(Color.black);
+                attackEffect.launchEffect();
                 battleTextDipslay.append("\n 곰이 베어너클을 시전합니다! \n " + bear.bearKnuckle()+"의 데미지로 공격합니다. \n 반사하기로 인해 데미지를 반사합니다.");
                 bear.setHealthPoint(bear.healthPoint - bear.bearKnuckle());
                 enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
@@ -1492,6 +1504,7 @@ public class MainDisplay extends JFrame {
         drawRectangleFrame.setBounds(0,0,600,800);
         battleTime.setBounds(300,-10,100,100);
         lastScore.setBounds(165,200,600,200);
+        attackEffect.setBounds(200,-20,800,600);
         lifeLabelOne.setBounds(25,380,30,30);
         lifeLabelTwo.setBounds(45,380,30,30);
         lifeLabelThree.setBounds(65,380,30,30);
