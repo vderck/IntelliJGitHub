@@ -1,5 +1,7 @@
-public class TimerCondition {
-    int initialTime = 120;
+public class Time {
+
+    //초기 시간
+    int initialTime = 180;
 
     public int getInitialTime(){
         return initialTime;

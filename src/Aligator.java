@@ -9,7 +9,7 @@ public class Aligator extends Animal {
 
     //반사한다
     public int reflect(int element) {
-        return element * 4;
+        return element * 2;
     }
 
 }

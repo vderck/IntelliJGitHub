@@ -1,4 +1,4 @@
-public class LifeCount {
+public class Life {
     int lifeNum = 4;
 
     public int getLifeNum(){

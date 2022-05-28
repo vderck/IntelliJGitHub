@@ -16,7 +16,6 @@ public class Bear {
 
     //베어너클(필살기)을 시전한다.
     public int bearKnuckle(){
-        int ultimateAttack = strength + 8;
-        return ultimateAttack;
+        return strength + 8;
     }
 }
