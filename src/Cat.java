@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class Cat extends Animal{
 
     //민첩
@@ -14,4 +16,6 @@ public class Cat extends Animal{
     public boolean avoid(){
         return Math.random() < 0.5;
     }
+
+
 }

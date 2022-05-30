@@ -148,40 +148,40 @@ public class MainDisplay extends JFrame {
         add(gameOverScreen);
 
         //캐릭터 아이콘
-        ImageIcon catIcon = new ImageIcon("images/pixel_cat.png");                                              // 고양이 아이콘
-        Image catImage = catIcon.getImage().getScaledInstance(250,250,Image.SCALE_DEFAULT);                 // 이미지 크기 조정  ImageIcon → Image 변경  이후 다시 Image → ImageIcon 변경
+        ImageIcon catIcon = new ImageIcon("images/emoticon_cat.png");                                              // 고양이 아이콘
+        Image catImage = catIcon.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT);                 // 이미지 크기 조정  ImageIcon → Image 변경  이후 다시 Image → ImageIcon 변경
         catIcon.setImage(catImage);
 
         JLabel catIconLabel = new JLabel();
         catIconLabel.setIcon(catIcon);
         add(catIconLabel);
 
-        ImageIcon dogIcon = new ImageIcon("images/pixel_dog.png");                                              // 강아지 아이콘
-        Image dogImage = dogIcon.getImage().getScaledInstance(250,250,Image.SCALE_DEFAULT);
+        ImageIcon dogIcon = new ImageIcon("images/emoticon_dog.png");                                              // 강아지 아이콘
+        Image dogImage = dogIcon.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT);
         dogIcon.setImage(dogImage);
 
         JLabel dogIconLabel = new JLabel();
         dogIconLabel.setIcon(dogIcon);
         add(dogIconLabel);
 
-        ImageIcon monkeyIcon = new ImageIcon("images/pixel_monkey.png");                                        // 원숭이 아이콘
-        Image monkeyImage = monkeyIcon.getImage().getScaledInstance(250,250,Image.SCALE_DEFAULT);
+        ImageIcon monkeyIcon = new ImageIcon("images/emoticon_monkey.png");                                        // 원숭이 아이콘
+        Image monkeyImage = monkeyIcon.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT);
         monkeyIcon.setImage(monkeyImage);
 
         JLabel monkeyIconLabel = new JLabel();
         monkeyIconLabel.setIcon(monkeyIcon);
         add(monkeyIconLabel);
 
-        ImageIcon alligatorIcon = new ImageIcon("images/pixel_aligator.png");                                    // 악어 아이콘
-        Image alligatorImage = alligatorIcon.getImage().getScaledInstance(250,250,Image.SCALE_DEFAULT);
+        ImageIcon alligatorIcon = new ImageIcon("images/emoticon_alligator.png");                                    // 악어 아이콘
+        Image alligatorImage = alligatorIcon.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT);
         alligatorIcon.setImage(alligatorImage);
 
         JLabel alligatorIconLabel = new JLabel();
         alligatorIconLabel.setIcon(alligatorIcon);
         add(alligatorIconLabel);
 
-        ImageIcon bearIcon = new ImageIcon("images/pixel_bear.png");                                            // 곰 아이콘
-        Image bearImage = bearIcon.getImage().getScaledInstance(250,250,Image.SCALE_DEFAULT);
+        ImageIcon bearIcon = new ImageIcon("images/emoticon_bear.png");                                            // 곰 아이콘
+        Image bearImage = bearIcon.getImage().getScaledInstance(200,200,Image.SCALE_DEFAULT);
         bearIcon.setImage(bearImage);
 
         JLabel bearIconLabel = new JLabel();
@@ -1542,10 +1542,10 @@ public class MainDisplay extends JFrame {
         lifeLabelTwo.setBounds(45,380,30,30);
         lifeLabelThree.setBounds(65,380,30,30);
         lifeLabelFour.setBounds(85,380,30,30);
-        catIconLabel.setBounds(-60,100,200,200);
-        dogIconLabel.setBounds(-20,120,250,200);
-        monkeyIconLabel.setBounds(-30,120,200,200);
-        alligatorIconLabel.setBounds(0,60,300,300);
+        catIconLabel.setBounds(20,120,200,200);
+        dogIconLabel.setBounds(20,120,250,200);
+        monkeyIconLabel.setBounds(20,120,200,200);
+        alligatorIconLabel.setBounds(20,60,300,300);
         bearIconLabel.setBounds(360,-110,600,600);
         animalStatus.setBounds(25,320,140,100);
         enemyStatus.setBounds(440,20,130,40);
