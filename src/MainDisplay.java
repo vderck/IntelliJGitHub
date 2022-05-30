@@ -15,14 +15,14 @@ public class MainDisplay extends JFrame {
         Cat cat = new Cat();
         Dog dog = new Dog();
         Monkey monkey = new Monkey();
-        Aligator aligator = new Aligator();
+        Alligator aligator = new Alligator();
         Bear bear = new Bear();
 
         // 패널 구성
         JPanel gameIntroBtn = new JPanel();
         JPanel animalStatus = new JPanel();
         JPanel enemyStatus = new JPanel();
-        JPanel Characters = new JPanel();
+        JPanel characters = new JPanel();
         JPanel catSkill = new JPanel();
         JPanel dogSkill = new JPanel();
         JPanel monkeySkill = new JPanel();
@@ -204,12 +204,12 @@ public class MainDisplay extends JFrame {
         monkeyBtn.setPreferredSize(new Dimension(120,60));
         alligatorBtn.setPreferredSize(new Dimension(120,60));
 
-        Characters.add(catBtn);
-        Characters.add(dogBtn);
-        Characters.add(monkeyBtn);
-        Characters.add(alligatorBtn);
+        characters.add(catBtn);
+        characters.add(dogBtn);
+        characters.add(monkeyBtn);
+        characters.add(alligatorBtn);
 
-        add(Characters);
+        add(characters);
 
         // 행동 리스트
         JButton catBasicAttack = new JButton("공격한다");
@@ -302,7 +302,7 @@ public class MainDisplay extends JFrame {
             animalStatus.setVisible(true);
             enemyStatus.setVisible(true);
             battleDescriptionScroll.setVisible(true);
-            Characters.setVisible(true);
+            characters.setVisible(true);
         });
 
         // 게임 설명듣기
@@ -347,7 +347,6 @@ public class MainDisplay extends JFrame {
             battleDescription.append(characterChoice);
 
         });
-
         // 고양이 스킬 리스트
         // 일반 공격
         catBasicAttack.addMouseListener(new MouseListener() {
@@ -1103,7 +1102,7 @@ public class MainDisplay extends JFrame {
             int healthPoint = aligator.healthPoint;
             healthPointDisplay.setText("HeathPoint " + healthPoint);
 
-            int viciousness = aligator.visciousness;
+            int viciousness = aligator.viciousness;
             viciousnessDisplay.setText("Viciousness "+ viciousness);
 
             catIconLabel.setVisible(false);
@@ -1358,7 +1357,7 @@ public class MainDisplay extends JFrame {
                     lifeLabelThree.setVisible(false);
                     lifeLabelFour.setVisible(false);
 
-                    Characters.setVisible(false);
+                    characters.setVisible(false);
                     catSkill.setVisible(false);
                     dogSkill.setVisible(false);
                     monkeySkill.setVisible(false);
@@ -1403,7 +1402,7 @@ public class MainDisplay extends JFrame {
                     lifeLabelThree.setVisible(false);
                     lifeLabelFour.setVisible(false);
 
-                    Characters.setVisible(false);
+                    characters.setVisible(false);
                     catSkill.setVisible(false);
                     dogSkill.setVisible(false);
                     monkeySkill.setVisible(false);
@@ -1522,7 +1521,7 @@ public class MainDisplay extends JFrame {
         gameIntroBtn.setLayout(new FlowLayout(FlowLayout.LEFT, 20,10));
         animalStatus.setLayout(new BoxLayout(animalStatus,BoxLayout.Y_AXIS));
         enemyStatus.setLayout(new BoxLayout(enemyStatus,BoxLayout.Y_AXIS));
-        Characters.setLayout(new FlowLayout(FlowLayout.LEFT,20,10));
+        characters.setLayout(new FlowLayout(FlowLayout.LEFT,20,10));
         catSkill.setLayout(new FlowLayout(FlowLayout.LEFT,20,10));
         dogSkill.setLayout(new FlowLayout(FlowLayout.LEFT,20,10));
         monkeySkill.setLayout(new FlowLayout(FlowLayout.LEFT,20,10));
@@ -1550,7 +1549,7 @@ public class MainDisplay extends JFrame {
         bearIconLabel.setBounds(360,-110,600,600);
         animalStatus.setBounds(25,320,140,100);
         enemyStatus.setBounds(440,20,130,40);
-        Characters.setBounds(0,500,600,100);
+        characters.setBounds(0,500,600,100);
         catSkill.setBounds(0,600,600,100);
         dogSkill.setBounds(0,600,600,100);
         monkeySkill.setBounds(0,600,600,100);
@@ -1570,7 +1569,7 @@ public class MainDisplay extends JFrame {
         lifeLabelThree.setVisible(false);
         lifeLabelFour.setVisible(false);
         battleDescriptionScroll.setVisible(false);
-        Characters.setVisible(false);
+        characters.setVisible(false);
         catSkill.setVisible(false);
         dogSkill.setVisible(false);
         monkeySkill.setVisible(false);

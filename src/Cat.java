@@ -2,10 +2,12 @@ public class Cat extends Animal{
 
     //민첩
     public int agility = 5;
+    int fourMultiples = 4;
 
     //할퀸다
     public int claw(){
-        return strength + agility*4;
+        int damage = strength + agility*fourMultiples;
+        return damage;
     }
 
     //회피한다
