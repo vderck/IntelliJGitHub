@@ -277,6 +277,47 @@ public class MainDisplay extends JFrame {
         add(monkeySkill);
         add(alligatorSkill);
 
+        //아이템 모음
+        //민첩 강화 포션 사용 - 고양이
+        add(cat.agilityPortionBtn);
+        cat.useAgilityPortion();
+        cat.agilityPortionBtn.setBounds(20,700,120,40);
+
+        //포션 사용 - 고양이
+        add(cat.healingPortionBtn);
+        cat.useHealingPortion();
+        cat.healingPortionBtn.setBounds(160,700,120,40);
+
+        //방어력 강화 포션 사용 - 강아지
+        add(dog.defensePortionBtn);
+        dog.useDefensePortion();
+        dog.defensePortionBtn.setBounds(20,700,120,40);
+
+        //체력 포션 사용 - 강아지
+        add(dog.healingPortionBtn);
+        dog.useHealingPortion();
+        dog.healingPortionBtn.setBounds(160,700,120,40);
+
+        //지혜 강화 포션 사용 - 원숭이
+        add(monkey.wisdomPortionBtn);
+        monkey.useWisdomPortion();
+        monkey.wisdomPortionBtn.setBounds(20,700,120,40);
+
+        //체력 포션 사용 - 원숭이
+        add(monkey.healingPortionBtn);
+        monkey.useHealingPortion();
+        monkey.healingPortionBtn.setBounds(160,700,120,40);
+
+        //비열함 강화 포션 사용 - 악어
+        add(aligator.viciousnessPortionBtn);
+        aligator.useViciousnessPortion();
+        aligator.viciousnessPortionBtn.setBounds(20,700,120,40);
+
+        //체력 포션 사용 - 악어
+        add(aligator.healingPortionBtn);
+        aligator.useHealingPortion();
+        aligator.healingPortionBtn.setBounds(160,700,120,40);
+
         //전투 시간 타이머
         JLabel battleTime = new JLabel("180 초");
 
@@ -285,6 +326,17 @@ public class MainDisplay extends JFrame {
         RectangleFrame rectangleFrame = new RectangleFrame();
 
         add(rectangleFrame);
+        //메인 화면 백그라운드
+        ImageIcon mainBackgroundIcon = new ImageIcon("images/pixel_mainBackground.png");
+        Image mainBackgroundImage = mainBackgroundIcon.getImage().getScaledInstance(600,800,Image.SCALE_DEFAULT);
+        mainBackgroundIcon.setImage(mainBackgroundImage);
+
+        JLabel mainBackgroundScreen = new JLabel();
+        mainBackgroundScreen.setIcon(mainBackgroundIcon);
+        add(mainBackgroundScreen);
+
+        mainBackgroundScreen.setBounds(0,0,600,800);
+
         // 게임 시작하기
         startButton.addActionListener(e -> {
             time.setInitialTime(180);
@@ -333,6 +385,15 @@ public class MainDisplay extends JFrame {
             monkeyIconLabel.setVisible(false);
             alligatorIconLabel.setVisible(false);
 
+            cat.agilityPortionBtn.setVisible(true);
+            cat.healingPortionBtn.setVisible(true);
+            dog.defensePortionBtn.setVisible(false);
+            dog.healingPortionBtn.setVisible(false);
+            monkey.wisdomPortionBtn.setVisible(false);
+            monkey.healingPortionBtn.setVisible(false);
+            aligator.viciousnessPortionBtn.setVisible(false);
+            aligator.healingPortionBtn.setVisible(false);
+
             catSkill.setVisible(true);
             dogSkill.setVisible(false);
             monkeySkill.setVisible(false);
@@ -377,6 +438,9 @@ public class MainDisplay extends JFrame {
                     catIconLabel.setVisible(false);
                     catBtn.setVisible(false);
                     catSkill.setVisible(false);
+
+                    cat.agilityPortionBtn.setVisible(false);
+                    cat.healingPortionBtn.setVisible(false);
 
                     life.setLifeNum(life.lifeNum-1);
                     int animalLife = life.getLifeNum();
@@ -435,6 +499,9 @@ public class MainDisplay extends JFrame {
                     catBtn.setVisible(false);
                     catSkill.setVisible(false);
 
+                    cat.agilityPortionBtn.setVisible(false);
+                    cat.healingPortionBtn.setVisible(false);
+
                     life.setLifeNum(life.lifeNum-1);
                     int animalLife = life.getLifeNum();
 
@@ -492,6 +559,9 @@ public class MainDisplay extends JFrame {
                         catBtn.setVisible(false);
                         catSkill.setVisible(false);
 
+                        cat.agilityPortionBtn.setVisible(false);
+                        cat.healingPortionBtn.setVisible(false);
+
                         life.setLifeNum(life.lifeNum-1);
                         int animalLife = life.getLifeNum();
 
@@ -540,6 +610,9 @@ public class MainDisplay extends JFrame {
                 catIconLabel.setVisible(false);
                 catBtn.setVisible(false);
                 catSkill.setVisible(false);
+
+                cat.agilityPortionBtn.setVisible(false);
+                cat.healingPortionBtn.setVisible(false);
             }
 
             @Override
@@ -601,6 +674,15 @@ public class MainDisplay extends JFrame {
             monkeySkill.setVisible(false);
             alligatorSkill.setVisible(false);
 
+            cat.agilityPortionBtn.setVisible(false);
+            cat.healingPortionBtn.setVisible(false);
+            dog.defensePortionBtn.setVisible(true);
+            dog.healingPortionBtn.setVisible(true);
+            monkey.wisdomPortionBtn.setVisible(false);
+            monkey.healingPortionBtn.setVisible(false);
+            aligator.viciousnessPortionBtn.setVisible(false);
+            aligator.healingPortionBtn.setVisible(false);
+
             agilityDisplay.setVisible(false);
             defenseDisplay.setVisible(true);
             wisdomDisplay.setVisible(false);
@@ -642,6 +724,9 @@ public class MainDisplay extends JFrame {
                     dogIconLabel.setVisible(false);
                     dogBtn.setVisible(false);
                     dogSkill.setVisible(false);
+
+                    dog.defensePortionBtn.setVisible(false);
+                    dog.healingPortionBtn.setVisible(false);
 
                     life.setLifeNum(life.lifeNum-1);
                     int animalLife = life.getLifeNum();
@@ -699,6 +784,9 @@ public class MainDisplay extends JFrame {
                     dogBtn.setVisible(false);
                     dogSkill.setVisible(false);
 
+                    dog.defensePortionBtn.setVisible(false);
+                    dog.healingPortionBtn.setVisible(false);
+
                     life.setLifeNum(life.lifeNum-1);
                     int animalLife = life.getLifeNum();
 
@@ -754,6 +842,9 @@ public class MainDisplay extends JFrame {
                     dogBtn.setVisible(false);
                     dogSkill.setVisible(false);
 
+                    dog.defensePortionBtn.setVisible(false);
+                    dog.healingPortionBtn.setVisible(false);
+
                     life.setLifeNum(life.lifeNum-1);
                     int animalLife = life.getLifeNum();
 
@@ -794,6 +885,9 @@ public class MainDisplay extends JFrame {
                 dogIconLabel.setVisible(false);
                 dogBtn.setVisible(false);
                 dogSkill.setVisible(false);
+
+                dog.defensePortionBtn.setVisible(false);
+                dog.healingPortionBtn.setVisible(false);
             }
 
             @Override
@@ -854,6 +948,15 @@ public class MainDisplay extends JFrame {
             monkeySkill.setVisible(true);
             alligatorSkill.setVisible(false);
 
+            cat.agilityPortionBtn.setVisible(false);
+            cat.healingPortionBtn.setVisible(false);
+            dog.defensePortionBtn.setVisible(false);
+            dog.healingPortionBtn.setVisible(false);
+            monkey.wisdomPortionBtn.setVisible(true);
+            monkey.healingPortionBtn.setVisible(true);
+            aligator.viciousnessPortionBtn.setVisible(false);
+            aligator.healingPortionBtn.setVisible(false);
+
             defenseDisplay.setVisible(false);
             agilityDisplay.setVisible(false);
             wisdomDisplay.setVisible(true);
@@ -893,6 +996,9 @@ public class MainDisplay extends JFrame {
                     monkeyIconLabel.setVisible(false);
                     monkeyBtn.setVisible(false);
                     monkeySkill.setVisible(false);
+
+                    monkey.wisdomPortionBtn.setVisible(false);
+                    monkey.healingPortionBtn.setVisible(false);
 
                     life.setLifeNum(life.lifeNum-1);
                     int animalLife = life.getLifeNum();
@@ -950,6 +1056,9 @@ public class MainDisplay extends JFrame {
                     monkeyIconLabel.setVisible(false);
                     monkeyBtn.setVisible(false);
                     monkeySkill.setVisible(false);
+
+                    monkey.wisdomPortionBtn.setVisible(false);
+                    monkey.healingPortionBtn.setVisible(false);
 
                     life.setLifeNum(life.lifeNum-1);
                     int animalLife = life.getLifeNum();
@@ -1015,6 +1124,9 @@ public class MainDisplay extends JFrame {
                     monkeyBtn.setVisible(false);
                     monkeySkill.setVisible(false);
 
+                    monkey.wisdomPortionBtn.setVisible(false);
+                    monkey.healingPortionBtn.setVisible(false);
+
                     life.setLifeNum(life.lifeNum-1);
                     int animalLife = life.getLifeNum();
 
@@ -1055,6 +1167,9 @@ public class MainDisplay extends JFrame {
                 monkeyIconLabel.setVisible(false);
                 monkeyBtn.setVisible(false);
                 monkeySkill.setVisible(false);
+
+                monkey.wisdomPortionBtn.setVisible(false);
+                monkey.healingPortionBtn.setVisible(false);
             }
 
             @Override
@@ -1115,6 +1230,15 @@ public class MainDisplay extends JFrame {
             monkeySkill.setVisible(false);
             alligatorSkill.setVisible(true);
 
+            cat.agilityPortionBtn.setVisible(false);
+            cat.healingPortionBtn.setVisible(false);
+            dog.defensePortionBtn.setVisible(false);
+            dog.healingPortionBtn.setVisible(false);
+            monkey.wisdomPortionBtn.setVisible(false);
+            monkey.healingPortionBtn.setVisible(false);
+            aligator.viciousnessPortionBtn.setVisible(true);
+            aligator.healingPortionBtn.setVisible(true);
+
             defenseDisplay.setVisible(false);
             agilityDisplay.setVisible(false);
             wisdomDisplay.setVisible(false);
@@ -1154,6 +1278,9 @@ public class MainDisplay extends JFrame {
                     alligatorIconLabel.setVisible(false);
                     alligatorBtn.setVisible(false);
                     alligatorSkill.setVisible(false);
+
+                    aligator.viciousnessPortionBtn.setVisible(false);
+                    aligator.healingPortionBtn.setVisible(false);
 
                     life.setLifeNum(life.lifeNum-1);
                     int animalLife = life.getLifeNum();
@@ -1210,6 +1337,9 @@ public class MainDisplay extends JFrame {
                     alligatorBtn.setVisible(false);
                     alligatorSkill.setVisible(false);
 
+                    aligator.viciousnessPortionBtn.setVisible(false);
+                    aligator.healingPortionBtn.setVisible(false);
+
                     life.setLifeNum(life.lifeNum-1);
                     int animalLife = life.getLifeNum();
 
@@ -1264,6 +1394,9 @@ public class MainDisplay extends JFrame {
                     alligatorBtn.setVisible(false);
                     alligatorSkill.setVisible(false);
 
+                    aligator.viciousnessPortionBtn.setVisible(false);
+                    aligator.healingPortionBtn.setVisible(false);
+
                     life.setLifeNum(life.lifeNum-1);
                     int animalLife = life.getLifeNum();
 
@@ -1308,6 +1441,9 @@ public class MainDisplay extends JFrame {
                 alligatorBtn.setVisible(false);
                 alligatorSkill.setVisible(false);
 
+                aligator.viciousnessPortionBtn.setVisible(false);
+                aligator.healingPortionBtn.setVisible(false);
+
                 life.setLifeNum(life.lifeNum-1);
                 int animalLife = life.getLifeNum();
 
@@ -1337,6 +1473,239 @@ public class MainDisplay extends JFrame {
             }
         });
 
+        //고양이 아이템 리스트
+        //민첩의 약 
+        cat.agilityPortionBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                battleDescription.append("\n 민첩의 약을 사용합니다! \n 민첩이 5 증가합니다.");
+                agilityDisplay.setText("Agility "+ cat.agility);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        //체력 포션
+        cat.healingPortionBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
+                healthPointDisplay.setText("HealthPoint "+ cat.healthPoint);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        //강아지 아이템 리스트
+        //방어의 약
+        dog.defensePortionBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                battleDescription.append("\n 방어의 약을 사용합니다! \n 방어력이 5 증가합니다.");
+                defenseDisplay.setText("Defense "+ dog.defense);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        //체력 포션
+        dog.healingPortionBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
+                healthPointDisplay.setText("HealthPoint "+ dog.healthPoint);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        //원숭이 아이템 리스트
+        //지혜의 약
+        monkey.wisdomPortionBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                battleDescription.append("\n 지혜의 약을 사용합니다! \n 지혜력이 5 증가합니다.");
+                wisdomDisplay.setText("Wisdom "+ monkey.wisdom);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        //체력 포션
+        monkey.healingPortionBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
+                healthPointDisplay.setText("HealthPoint "+monkey.healthPoint);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        //악어 아이템 리스트
+        //비열함의 약
+        aligator.viciousnessPortionBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                battleDescription.append("\n 비열함의 약을 사용합니다! \n 비열함이 5 증가합니다.");
+                viciousnessDisplay.setText("Viciousness "+ aligator.viciousness);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        aligator.healingPortionBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
+                healthPointDisplay.setText("HealthPoint "+aligator.healthPoint);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+
         //시간 제한 타이머
         Timer limitTimer = new Timer();
 
@@ -1362,6 +1731,15 @@ public class MainDisplay extends JFrame {
                     dogSkill.setVisible(false);
                     monkeySkill.setVisible(false);
                     alligatorSkill.setVisible(false);
+
+                    cat.healingPortionBtn.setVisible(false);
+                    cat.agilityPortionBtn.setVisible(false);
+                    dog.defensePortionBtn.setVisible(false);
+                    dog.healingPortionBtn.setVisible(false);
+                    monkey.wisdomPortionBtn.setVisible(false);
+                    monkey.healingPortionBtn.setVisible(false);
+                    aligator.viciousnessPortionBtn.setVisible(false);
+                    aligator.healingPortionBtn.setVisible(false);
 
                     animalStatus.setVisible(false);
                     enemyStatus.setVisible(false);
@@ -1408,6 +1786,15 @@ public class MainDisplay extends JFrame {
                     monkeySkill.setVisible(false);
                     alligatorSkill.setVisible(false);
 
+                    cat.healingPortionBtn.setVisible(false);
+                    cat.agilityPortionBtn.setVisible(false);
+                    dog.defensePortionBtn.setVisible(false);
+                    dog.healingPortionBtn.setVisible(false);
+                    monkey.wisdomPortionBtn.setVisible(false);
+                    monkey.healingPortionBtn.setVisible(false);
+                    aligator.viciousnessPortionBtn.setVisible(false);
+                    aligator.healingPortionBtn.setVisible(false);
+
                     animalStatus.setVisible(false);
                     enemyStatus.setVisible(false);
                     bearIconLabel.setVisible(false);
@@ -1422,11 +1809,13 @@ public class MainDisplay extends JFrame {
         //폰트
         Font basicFontFourTeen = new Font("맑은 고딕", Font.BOLD,14);
         Font notoSansBoldFourteen = new Font("Noto Sans KR", Font.BOLD,14);
+        Font notoSansBoldSixteen = new Font("Noto Sans KR", Font.BOLD,16);
         Font notoSansBoldTwenty = new Font("Noto Sans KR", Font.BOLD,20);
 
         startButton.setFont(notoSansBoldTwenty);
         gameDescriptionButton.setFont(notoSansBoldTwenty);
         gameDescriptionText.setFont(notoSansBoldTwenty);
+        battleDescription.setFont(notoSansBoldSixteen);
         battleTime.setFont(basicFontFourTeen);
         totalScore.setFont(notoSansBoldFourteen);
         lastScore.setFont(notoSansBoldTwenty);
@@ -1466,6 +1855,16 @@ public class MainDisplay extends JFrame {
         // UI 컬러
         gameIntroBtn.setBackground(Color.white);                                                                        //버튼 밖 프레임 채색 목적
         lastScore.setForeground(Color.white);
+        rectangleFrame.setBackground(new Color(0,0,0,0));
+
+        animalStatus.setBackground(Color.white);
+        enemyStatus.setBackground(Color.white);
+
+        characters.setBackground(new Color(0,0,0,0));
+        catSkill.setBackground(new Color(0,0,0,0));
+        dogSkill.setBackground(new Color(0,0,0,0));
+        monkeySkill.setBackground(new Color(0,0,0,0));
+        alligatorSkill.setBackground(new Color(0,0,0,0));
 
         startButton.setForeground(Color.white);
         startButton.setBackground(Color.black);
@@ -1554,7 +1953,7 @@ public class MainDisplay extends JFrame {
         dogSkill.setBounds(0,600,600,100);
         monkeySkill.setBounds(0,600,600,100);
         alligatorSkill.setBounds(0,600,600,100);
-        battleDescriptionScroll.setBounds(300,310,260,120);
+        battleDescriptionScroll.setBounds(150,305,400,140);
         openingScreen.setBounds(0,0,600,800);
 
         // 초기 UI 설정
@@ -1574,7 +1973,14 @@ public class MainDisplay extends JFrame {
         dogSkill.setVisible(false);
         monkeySkill.setVisible(false);
         alligatorSkill.setVisible(false);
-
+        cat.agilityPortionBtn.setVisible(false);
+        cat.healingPortionBtn.setVisible(false);
+        dog.defensePortionBtn.setVisible(false);
+        dog.healingPortionBtn.setVisible(false);
+        monkey.wisdomPortionBtn.setVisible(false);
+        monkey.healingPortionBtn.setVisible(false);
+        aligator.viciousnessPortionBtn.setVisible(false);
+        aligator.healingPortionBtn.setVisible(false);
         // 기본 UI 설정
         setSize(600,800);
         setTitle("베어 헌트");
