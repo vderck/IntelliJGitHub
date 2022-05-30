@@ -28,6 +28,12 @@ public class MainDisplay extends JFrame {
         JPanel monkeySkill = new JPanel();
         JPanel alligatorSkill = new JPanel();
 
+        //힐 이펙트
+        HealEffect healEffect = new HealEffect();
+        healEffect.HealEffect();
+        healEffect.setBounds(20,20,300,300);
+        add(healEffect);
+
         //오프닝 메뉴
         JButton startButton = new JButton("시작하기");
         JButton gameDescriptionButton = new JButton("설명듣기");
@@ -111,6 +117,7 @@ public class MainDisplay extends JFrame {
         //공격 이펙트
         AttackEffect attackEffect = new AttackEffect();                                                                 //실행시 attackEffect.launchEffect() 로 실행
         add(attackEffect);
+
 
         //게임 점수
         JLabel totalScore = new JLabel("Score: 0");
