@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class MainDisplay extends JFrame {
+public class MainDisplay extends JFrame{
     public  void mainFrame() {
         // 클래스 객체
         GameScore gameScore = new GameScore();
@@ -30,8 +30,6 @@ public class MainDisplay extends JFrame {
 
         //힐 이펙트
         HealEffect healEffect = new HealEffect();
-        healEffect.HealEffect();
-        healEffect.setBounds(20,20,300,300);
         add(healEffect);
 
         //오프닝 메뉴
@@ -1514,6 +1512,8 @@ public class MainDisplay extends JFrame {
         cat.healingPortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                healEffect.threadCount = 20;
+                healEffect.HealEffect();
                 battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
                 healthPointDisplay.setText("HealthPoint "+ cat.healthPoint);
             }
@@ -1572,6 +1572,8 @@ public class MainDisplay extends JFrame {
         dog.healingPortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                healEffect.threadCount = 20;
+                healEffect.HealEffect();
                 battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
                 healthPointDisplay.setText("HealthPoint "+ dog.healthPoint);
             }
@@ -1630,6 +1632,8 @@ public class MainDisplay extends JFrame {
         monkey.healingPortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                healEffect.threadCount = 20;
+                healEffect.HealEffect();
                 battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
                 healthPointDisplay.setText("HealthPoint "+monkey.healthPoint);
             }
@@ -1687,6 +1691,8 @@ public class MainDisplay extends JFrame {
         aligator.healingPortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                healEffect.threadCount = 20;
+                healEffect.HealEffect();
                 battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
                 healthPointDisplay.setText("HealthPoint "+aligator.healthPoint);
             }
@@ -1711,7 +1717,6 @@ public class MainDisplay extends JFrame {
 
             }
         });
-
 
         //시간 제한 타이머
         Timer limitTimer = new Timer();
@@ -1944,6 +1949,7 @@ public class MainDisplay extends JFrame {
         totalScore.setBounds(20,-170,400,400);
         lastScore.setBounds(165,200,600,200);
         attackEffect.setBounds(200,-20,800,600);
+        healEffect.setBounds(-60,20,300,300);
         lifeLabelOne.setBounds(25,380,30,30);
         lifeLabelTwo.setBounds(45,380,30,30);
         lifeLabelThree.setBounds(65,380,30,30);
@@ -2001,4 +2007,5 @@ public class MainDisplay extends JFrame {
         MainDisplay mainDisplay = new MainDisplay();
         mainDisplay.mainFrame();
     }
+
 }
