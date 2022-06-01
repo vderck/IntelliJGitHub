@@ -46,8 +46,8 @@ public class Dog extends Animal{
         defensePortionBtn.setPreferredSize(new Dimension(120,60));
         healingPortionBtn.setPreferredSize(new Dimension(120,60));
 
-        defensePortionBtn.setFont(notoSansBoldFourteen);
-        healingPortionBtn.setFont(notoSansBoldFourteen);
+        defensePortionBtn.setFont(mapleStoryBoldTwenty);
+        healingPortionBtn.setFont(mapleStoryBoldTwenty);
         defensePortionBtn.setForeground(Color.white);
         defensePortionBtn.setBackground(Color.black);
         healingPortionBtn.setForeground(Color.white);
@@ -55,5 +55,5 @@ public class Dog extends Animal{
     }
 
     //폰트
-    Font notoSansBoldFourteen = new Font("Noto Sans KR", Font.BOLD,14);
+    Font mapleStoryBoldTwenty = new Font("메이플스토리 Bold",Font.BOLD,20);
 }

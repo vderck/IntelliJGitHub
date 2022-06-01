@@ -5,7 +5,9 @@ import java.util.TimerTask;
 
 public class AttackEffect extends JComponent {
 
-    JButton effectBtn = new JButton();
+    JButton enemyAttackEffectBtn = new JButton();
+    JButton animalDamageEffectBtn = new JButton();
+
 
     int effectTimeCountOne = 40;
     int effectTimeCountTwo = 40;
@@ -26,10 +28,10 @@ public class AttackEffect extends JComponent {
     int effectTimeCountSeventeen = 40;
     int effectTimeCountEighteen = 40;
 
-
+    int effectTimeCountExtra = 100;
 
     public void launchEffect() {
-       effectBtn.setVisible(true);
+       enemyAttackEffectBtn.setVisible(true);
        launchEffectComponentOne();
        launchEffectComponentTwo();
        launchEffectComponentThree();
@@ -57,14 +59,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountOne > 0){
                     effectTimeCountOne--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(20,20);
-                    effectBtn.setLocation(200,200);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(20,20);
+                    enemyAttackEffectBtn.setLocation(400,200);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountOne == 0){
                     effectTimeCountOne = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -79,14 +81,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountTwo > 0){
                     effectTimeCountTwo--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(20,20);
-                    effectBtn.setLocation(190,210);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(20,20);
+                    enemyAttackEffectBtn.setLocation(390,210);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountTwo == 0){
                     effectTimeCountTwo = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -101,14 +103,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountThree > 0){
                     effectTimeCountThree--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(20,20);
-                    effectBtn.setLocation(180,220);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(20,20);
+                    enemyAttackEffectBtn.setLocation(380,220);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountThree == 0){
                     effectTimeCountThree = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -124,14 +126,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountFour > 0){
                     effectTimeCountFour--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(20,20);
-                    effectBtn.setLocation(170,230);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(20,20);
+                    enemyAttackEffectBtn.setLocation(370,230);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountFour == 0){
                     effectTimeCountFour = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -146,14 +148,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountFive > 0){
                     effectTimeCountFive--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(20,20);
-                    effectBtn.setLocation(160,240);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(20,20);
+                    enemyAttackEffectBtn.setLocation(360,240);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountFive == 0){
                     effectTimeCountFive = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -168,14 +170,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountSix > 0){
                     effectTimeCountSix--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(20,20);
-                    effectBtn.setLocation(150,250);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(20,20);
+                    enemyAttackEffectBtn.setLocation(350,250);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountSix == 0){
                     effectTimeCountSix = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -190,14 +192,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountSeven > 0){
                     effectTimeCountSeven--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(30,30);
-                    effectBtn.setLocation(240,200);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(30,30);
+                    enemyAttackEffectBtn.setLocation(440,200);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountSeven == 0){
                     effectTimeCountSeven = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -212,14 +214,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountEight > 0){
                     effectTimeCountEight--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(30,30);
-                    effectBtn.setLocation(230,210);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(30,30);
+                    enemyAttackEffectBtn.setLocation(430,210);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountEight == 0){
                     effectTimeCountEight = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -234,14 +236,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountNine > 0){
                     effectTimeCountNine--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(30,30);
-                    effectBtn.setLocation(220,220);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(30,30);
+                    enemyAttackEffectBtn.setLocation(420,220);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountNine == 0){
                     effectTimeCountNine = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -256,14 +258,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountTen > 0){
                     effectTimeCountTen--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(30,30);
-                    effectBtn.setLocation(210,230);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(30,30);
+                    enemyAttackEffectBtn.setLocation(410,230);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountTen == 0){
                     effectTimeCountTen = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -278,14 +280,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountEleven > 0){
                     effectTimeCountEleven--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(30,30);
-                    effectBtn.setLocation(200,240);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(30,30);
+                    enemyAttackEffectBtn.setLocation(400,240);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountEleven == 0){
                     effectTimeCountEleven = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -300,14 +302,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountTwelve > 0){
                     effectTimeCountTwelve--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(30,30);
-                    effectBtn.setLocation(190,250);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(30,30);
+                    enemyAttackEffectBtn.setLocation(390,250);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountTwelve == 0){
                     effectTimeCountTwelve = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -322,14 +324,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountThirteen > 0){
                     effectTimeCountThirteen--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(40,40);
-                    effectBtn.setLocation(280,200);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(40,40);
+                    enemyAttackEffectBtn.setLocation(480,200);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountThirteen == 0){
                     effectTimeCountThirteen = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -344,14 +346,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountFourteen > 0){
                     effectTimeCountFourteen--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(40,40);
-                    effectBtn.setLocation(270,210);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(40,40);
+                    enemyAttackEffectBtn.setLocation(470,210);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountFourteen == 0){
                     effectTimeCountFourteen = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -366,14 +368,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountFifteen > 0){
                     effectTimeCountFifteen--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(40,40);
-                    effectBtn.setLocation(260,220);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(40,40);
+                    enemyAttackEffectBtn.setLocation(460,220);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountFifteen == 0){
                     effectTimeCountFifteen = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -388,14 +390,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountSixteen > 0){
                     effectTimeCountSixteen--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(40,40);
-                    effectBtn.setLocation(250,230);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(40,40);
+                    enemyAttackEffectBtn.setLocation(450,230);
+                    add(enemyAttackEffectBtn);
 
-                } else if (effectTimeCountSix == 0){
+                } else if (effectTimeCountSixteen == 0){
                     effectTimeCountSixteen = 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -410,14 +412,14 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountSeventeen > 0){
                     effectTimeCountSeventeen--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(40,40);
-                    effectBtn.setLocation(270,240);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(40,40);
+                    enemyAttackEffectBtn.setLocation(470,240);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountSeventeen == 0){
                     effectTimeCountSeventeen= 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
@@ -432,19 +434,51 @@ public class AttackEffect extends JComponent {
             public void run() {
                 if(effectTimeCountEighteen > 0){
                     effectTimeCountEighteen--;
-                    effectBtn.setBackground(Color.red);
-                    effectBtn.setSize(40,40);
-                    effectBtn.setLocation(280,250);
-                    add(effectBtn);
+                    enemyAttackEffectBtn.setBackground(Color.red);
+                    enemyAttackEffectBtn.setSize(40,40);
+                    enemyAttackEffectBtn.setLocation(480,250);
+                    add(enemyAttackEffectBtn);
 
                 } else if (effectTimeCountEighteen == 0){
                     effectTimeCountEighteen= 40;
-                    effectBtn.setVisible(false);
+                    enemyAttackEffectBtn.setVisible(false);
                     timer.cancel();
                 }
             }
         };
         timer.schedule(timerTask,0,200); // 태스크 발동, 0ms 즉시 실행, 200ms 매구간 실행
+    }
+
+
+    public void launchEffectExtra(){
+        animalDamageEffectBtn.setVisible(true);
+        launchEffectExtraComponentIntegration();
+    }
+
+    public void launchEffectExtraComponentIntegration() {
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                if(effectTimeCountExtra > 0){
+                    int randomWidthAndHeight = (int) (Math.random()*21)+20;                                             // 20~40 사이 정수
+                    int randomLocationRangeX = (int) (Math.random()*121)+30;                                             // 30~150 사이 정수
+                    int randomLocationRangeY = (int) (Math.random()*121)+160;                                             // 160~280 사이 정수
+
+                    effectTimeCountExtra--;
+                    animalDamageEffectBtn.setBackground(Color.orange);
+                    animalDamageEffectBtn.setSize(randomWidthAndHeight,randomWidthAndHeight);
+                    animalDamageEffectBtn.setLocation(randomLocationRangeX,randomLocationRangeY);
+                    add(animalDamageEffectBtn);
+
+                } else if (effectTimeCountExtra == 0){
+                    effectTimeCountExtra = 100;
+                    animalDamageEffectBtn.setVisible(false);
+                    timer.cancel();
+                }
+            }
+        };
+        timer.schedule(timerTask,0,50); // 태스크 발동, 0ms 즉발 실행, 50ms 매구간 실행
     }
 
 

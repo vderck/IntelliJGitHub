@@ -7,7 +7,7 @@ public class Alligator extends Animal {
     //비열함
     public int viciousness = 10;
 
-    JButton viciousnessPortionBtn = new JButton("비열함의 약");
+    JButton viciousnessPortionBtn = new JButton("비열함 약");
     JButton healingPortionBtn = new JButton("체력 포션");
     //꼬리로 때린다
     public int whipWithTail() {
@@ -44,8 +44,8 @@ public class Alligator extends Animal {
         viciousnessPortionBtn.setPreferredSize(new Dimension(120,60));
         healingPortionBtn.setPreferredSize(new Dimension(120,60));
 
-        viciousnessPortionBtn.setFont(notoSansBoldFourteen);
-        healingPortionBtn.setFont(notoSansBoldFourteen);
+        viciousnessPortionBtn.setFont(mapleStoryBoldTwenty);
+        healingPortionBtn.setFont(mapleStoryBoldTwenty);
         viciousnessPortionBtn.setForeground(Color.white);
         viciousnessPortionBtn.setBackground(Color.black);
         healingPortionBtn.setForeground(Color.white);
@@ -53,6 +53,6 @@ public class Alligator extends Animal {
     }
 
     //폰트
-    Font notoSansBoldFourteen = new Font("Noto Sans KR", Font.BOLD,14);
+    Font mapleStoryBoldTwenty = new Font("메이플스토리 Bold",Font.BOLD,20);
 
 }

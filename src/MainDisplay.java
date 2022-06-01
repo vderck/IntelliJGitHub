@@ -7,7 +7,8 @@ import java.util.TimerTask;
 
 
 public class MainDisplay extends JFrame{
-    public  void mainFrame() {
+
+    public void mainFrame() {
         // 클래스 객체
         GameScore gameScore = new GameScore();
         Life life = new Life();
@@ -27,10 +28,6 @@ public class MainDisplay extends JFrame{
         JPanel dogSkill = new JPanel();
         JPanel monkeySkill = new JPanel();
         JPanel alligatorSkill = new JPanel();
-
-        //힐 이펙트
-        HealEffect healEffect = new HealEffect();
-        add(healEffect);
 
         //오프닝 메뉴
         JButton startButton = new JButton("시작하기");
@@ -87,8 +84,8 @@ public class MainDisplay extends JFrame{
         add(lifeLabelFour);
 
         // 아군 기본상태 표시
-        JLabel strengthDisplay = new JLabel("Strength: 10");
-        JLabel healthPointDisplay = new JLabel("HealthPoint: 100");
+        JLabel strengthDisplay = new JLabel("Strength 10");
+        JLabel healthPointDisplay = new JLabel("HealthPoint 100");
         JLabel agilityDisplay = new JLabel("");
         JLabel defenseDisplay = new JLabel("");
         JLabel wisdomDisplay = new JLabel("");
@@ -104,18 +101,52 @@ public class MainDisplay extends JFrame{
         add(animalStatus);
 
         //적군 기본 상태 표시
-        JLabel enemyStrengthDisplay = new JLabel("Strength: 12");
-        JLabel enemyHealthPointDisplay = new JLabel("HealthPoint: 1000");
+        JLabel enemyStrengthDisplay = new JLabel("Strength 12");
+        JLabel enemyHealthPointDisplay = new JLabel("HealthPoint 1000");
 
         enemyStatus.add(enemyStrengthDisplay);
         enemyStatus.add(enemyHealthPointDisplay);
 
         add(enemyStatus);
 
+        //아군 체력바
+        CatHealthBar catHealthBar = new CatHealthBar();
+        add(catHealthBar.catHealthBar);
+
+        Thread catHealthBarThread = new Thread(catHealthBar);
+        catHealthBarThread.start();                                                                                     // 각 캐릭터 사망시 반드시 쓰레드를 멈출것 !
+
+        DogHealthBar dogHealthBar = new DogHealthBar();
+        add(dogHealthBar.dogHealthBar);
+
+        Thread dogHealthBarThread = new Thread(dogHealthBar);
+        dogHealthBarThread.start();
+
+        MonkeyHealthBar monkeyHealthBar = new MonkeyHealthBar();
+        add(monkeyHealthBar.monkeyHealthBar);
+
+        Thread monkeyHealthBarThread = new Thread(monkeyHealthBar);
+        monkeyHealthBarThread.start();
+
+        AlligatorHealthBar alligatorHealthBar = new AlligatorHealthBar();
+        add(alligatorHealthBar.alligatorHealthBar);
+
+        Thread alligatorHealthBarThread = new Thread(alligatorHealthBar);
+        alligatorHealthBarThread.start();
+
+        //적군 체력바
+
         //공격 이펙트
         AttackEffect attackEffect = new AttackEffect();                                                                 //실행시 attackEffect.launchEffect() 로 실행
         add(attackEffect);
 
+        //헬스 포션 이펙트
+        HealthPotionEffect healthPotionEffect = new HealthPotionEffect();
+        add(healthPotionEffect);
+
+        //능력치 포션 이펙트
+        StatusPotionEffect statusPotionEffect = new StatusPotionEffect();
+        add(statusPotionEffect);
 
         //게임 점수
         JLabel totalScore = new JLabel("Score: 0");
@@ -228,12 +259,12 @@ public class MainDisplay extends JFrame{
         JButton dogWithDraw = new JButton("기권한다");
 
         JButton monkeyBasicAttack = new JButton("공격한다");
-        JButton monkeySpecialAttack = new JButton("열매 던진다");
+        JButton monkeySpecialAttack = new JButton("열매 투척");
         JButton monkeyUltimateAttack = new JButton("전체 회복");
         JButton monkeyWithDraw = new JButton("기권한다");
 
         JButton alligatorBasicAttack = new JButton("일반 공격");
-        JButton alligatorSpecialAttack = new JButton("꼬리로 친다");
+        JButton alligatorSpecialAttack = new JButton("꼬리후리기");
         JButton alligatorUltimateAttack = new JButton("반사한다");
         JButton alligatorWithDraw = new JButton("기권한다");
 
@@ -390,6 +421,11 @@ public class MainDisplay extends JFrame{
             monkeyIconLabel.setVisible(false);
             alligatorIconLabel.setVisible(false);
 
+            catHealthBar.catHealthBar.setVisible(true);
+            dogHealthBar.dogHealthBar.setVisible(false);
+            monkeyHealthBar.monkeyHealthBar.setVisible(false);
+            alligatorHealthBar.alligatorHealthBar.setVisible(false);
+
             cat.agilityPortionBtn.setVisible(true);
             cat.healingPortionBtn.setVisible(true);
             dog.defensePortionBtn.setVisible(false);
@@ -425,9 +461,10 @@ public class MainDisplay extends JFrame{
             public void mousePressed(MouseEvent e) {
                 catBasicAttack.setBackground(Color.gray);
                 attackEffect.launchEffect();
+                attackEffect.launchEffectExtra();
                 battleDescription.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ cat.attack()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-cat.attack());
-                enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
+                enemyHealthPointDisplay.setText("HealthPoint "+ bear.getHealthPoint());
             }
 
             @Override
@@ -435,7 +472,8 @@ public class MainDisplay extends JFrame{
                 catBasicAttack.setBackground(Color.black);
                 battleDescription.append("\n 곰이 반격합니다! " + bear.strength +"의 데미지를 입었습니다.");
                 cat.setHealthPoint(cat.healthPoint - bear.strength);
-                healthPointDisplay.setText("HealthPoint :"+ cat.healthPoint);
+                healthPointDisplay.setText("HealthPoint "+ cat.healthPoint);
+                catHealthBar.CurrentHealth(cat.healthPoint);
 
                 if (cat.getHealthPoint() <= 0){
                     battleDescription.append("\n 야아아아옹~~! \n 고양이 캐릭터가 장렬하게 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -485,9 +523,10 @@ public class MainDisplay extends JFrame{
             public void mousePressed(MouseEvent e) {
                 catSpecialAttack.setBackground(Color.gray);
                 attackEffect.launchEffect();
+                attackEffect.launchEffectExtra();
                 battleDescription.append("\n 할퀴기를 시전합니다!" + "\n 곰에게 "+ cat.claw()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-cat.claw());
-                enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
+                enemyHealthPointDisplay.setText("HealthPoint "+ bear.getHealthPoint());
             }
 
             @Override
@@ -495,7 +534,8 @@ public class MainDisplay extends JFrame{
                 catSpecialAttack.setBackground(Color.black);
                 battleDescription.append("\n 곰이 반격합니다! " + bear.strength +"의 데미지를 입었습니다.");
                 cat.setHealthPoint(cat.healthPoint - bear.strength);
-                healthPointDisplay.setText("HealthPoint :"+ cat.healthPoint);
+                healthPointDisplay.setText("HealthPoint "+ cat.healthPoint);
+                catHealthBar.CurrentHealth(cat.healthPoint);
 
                 if (cat.getHealthPoint() <= 0){
                     battleDescription.append("\n 야아아아옹~~! \n 고양이 캐릭터가 장렬하게 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -550,12 +590,14 @@ public class MainDisplay extends JFrame{
                 if (cat.avoid()){
                     battleDescription.append("\n 곰의 공격을 회피했습니다!");
                     cat.setHealthPoint(cat.healthPoint);
-                    healthPointDisplay.setText("HealthPoint :"+ cat.healthPoint);
+                    healthPointDisplay.setText("HealthPoint "+ cat.healthPoint);
                 } else {
                     battleDescription.append("\n 회피에 실패했습니다.");
                     battleDescription.append("\n " + bear.bearKnuckle() +"의 데미지를 입었습니다.");
+                    attackEffect.launchEffectExtra();
                     cat.setHealthPoint(cat.healthPoint - bear.bearKnuckle());
-                    healthPointDisplay.setText("HealthPoint :"+ cat.healthPoint);
+                    healthPointDisplay.setText("HealthPoint "+ cat.healthPoint);
+                    catHealthBar.CurrentHealth(cat.healthPoint);
 
                     if (cat.getHealthPoint() <= 0){
                         battleDescription.append("\n 야아아아옹~~! \n 고양이 캐릭터가 장렬하게 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -612,6 +654,7 @@ public class MainDisplay extends JFrame{
                 catWithDraw.setBackground(Color.gray);
                 battleDescription.append("\n 소중한 고양이를 위해 기권합니다. \n 다른 캐릭터를 골라주세요.");
 
+                catHealthBar.catHealthBar.setVisible(false);
                 catIconLabel.setVisible(false);
                 catBtn.setVisible(false);
                 catSkill.setVisible(false);
@@ -679,6 +722,11 @@ public class MainDisplay extends JFrame{
             monkeySkill.setVisible(false);
             alligatorSkill.setVisible(false);
 
+            catHealthBar.catHealthBar.setVisible(false);
+            dogHealthBar.dogHealthBar.setVisible(true);
+            monkeyHealthBar.monkeyHealthBar.setVisible(false);
+            alligatorHealthBar.alligatorHealthBar.setVisible(false);
+
             cat.agilityPortionBtn.setVisible(false);
             cat.healingPortionBtn.setVisible(false);
             dog.defensePortionBtn.setVisible(true);
@@ -711,9 +759,10 @@ public class MainDisplay extends JFrame{
             public void mousePressed(MouseEvent e) {
                 dogBasicAttack.setBackground(Color.gray);
                 attackEffect.launchEffect();
+                attackEffect.launchEffectExtra();
                 battleDescription.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ dog.attack()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-dog.attack());
-                enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
+                enemyHealthPointDisplay.setText("HealthPoint "+ bear.getHealthPoint());
             }
 
             @Override
@@ -721,7 +770,8 @@ public class MainDisplay extends JFrame{
                 dogBasicAttack.setBackground(Color.black);
                 battleDescription.append("\n 곰이 반격합니다! " + bear.strength +"의 데미지를 입었습니다.");
                 dog.setHealthPoint(dog.healthPoint - bear.strength);
-                healthPointDisplay.setText("HealthPoint :"+ dog.healthPoint);
+                healthPointDisplay.setText("HealthPoint "+ dog.healthPoint);
+                dogHealthBar.CurrentHealth(dog.healthPoint);
 
                 if (dog.getHealthPoint() <= 0){
                     battleDescription.append("\n 깨개갱 깨개갱~~! \n 강아지 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -770,9 +820,10 @@ public class MainDisplay extends JFrame{
             public void mousePressed(MouseEvent e) {
                 dogSpecialAttack.setBackground(Color.gray);
                 attackEffect.launchEffect();
+                attackEffect.launchEffectExtra();
                 battleDescription.append("\n 물어뜯기를 시전합니다!" + "\n 곰에게 "+ dog.bite()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-dog.bite());
-                enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
+                enemyHealthPointDisplay.setText("HealthPoint "+ bear.getHealthPoint());
             }
 
             @Override
@@ -780,7 +831,8 @@ public class MainDisplay extends JFrame{
                 dogSpecialAttack.setBackground(Color.black);
                 battleDescription.append("\n 곰이 반격합니다! " + bear.strength +"의 데미지를 입었습니다.");
                 dog.setHealthPoint(dog.healthPoint - bear.strength);
-                healthPointDisplay.setText("HealthPoint :"+ dog.healthPoint);
+                healthPointDisplay.setText("HealthPoint "+ dog.healthPoint);
+                dogHealthBar.CurrentHealth(dog.healthPoint);
 
                 if (dog.getHealthPoint() <= 0){
                     battleDescription.append("\n 깨개갱 깨개갱~~! \n 강아지 캐릭터가 비참히 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -835,10 +887,12 @@ public class MainDisplay extends JFrame{
             public void mouseReleased(MouseEvent e) {
                 dogUltimateAttack.setBackground(Color.black);
                 battleDescription.append("\n 곰이 베어너클을 시전합니다! \n " + bear.bearKnuckle()+"의 데미지로 공격합니다.");
+                attackEffect.launchEffectExtra();
                 dog.setHealthPoint(dog.healthPoint - bear.bearKnuckle() + dog.defend());
-                healthPointDisplay.setText("HealthPoint :"+ dog.healthPoint);
+                healthPointDisplay.setText("HealthPoint "+ dog.healthPoint);
                 battleDescription.append("\n 방어하기로 인해 " + dog.defend()+"의 데미지를 경감합니다.");
                 battleDescription.append("\n 오직 " + (bear.bearKnuckle()-dog.defend()) +"의 데미지를 받습니다.");
+                dogHealthBar.CurrentHealth(dog.healthPoint);
 
                 if (dog.getHealthPoint() <= 0){
                     battleDescription.append("\n 깨개갱 깨개갱~~! \n 강아지 캐릭터가 비참히 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -887,6 +941,7 @@ public class MainDisplay extends JFrame{
                 dogWithDraw.setBackground(Color.gray);
                 battleDescription.append("\n 소중한 강아지를 위해 기권합니다. \n 다른 캐릭터를 골라주세요.");
 
+                dogHealthBar.dogHealthBar.setVisible(false);
                 dogIconLabel.setVisible(false);
                 dogBtn.setVisible(false);
                 dogSkill.setVisible(false);
@@ -953,6 +1008,11 @@ public class MainDisplay extends JFrame{
             monkeySkill.setVisible(true);
             alligatorSkill.setVisible(false);
 
+            catHealthBar.catHealthBar.setVisible(false);
+            dogHealthBar.dogHealthBar.setVisible(false);
+            monkeyHealthBar.monkeyHealthBar.setVisible(true);
+            alligatorHealthBar.alligatorHealthBar.setVisible(false);
+
             cat.agilityPortionBtn.setVisible(false);
             cat.healingPortionBtn.setVisible(false);
             dog.defensePortionBtn.setVisible(false);
@@ -983,9 +1043,10 @@ public class MainDisplay extends JFrame{
             public void mousePressed(MouseEvent e) {
                 monkeyBasicAttack.setBackground(Color.gray);
                 attackEffect.launchEffect();
+                attackEffect.launchEffectExtra();
                 battleDescription.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ monkey.attack()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-monkey.attack());
-                enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
+                enemyHealthPointDisplay.setText("HealthPoint "+ bear.getHealthPoint());
             }
 
             @Override
@@ -993,7 +1054,8 @@ public class MainDisplay extends JFrame{
                 monkeyBasicAttack.setBackground(Color.black);
                 battleDescription.append("\n 곰이 반격합니다! " + bear.strength +"의 데미지를 입었습니다.");
                 monkey.setHealthPoint(monkey.healthPoint - bear.strength);
-                healthPointDisplay.setText("HealthPoint :"+ monkey.healthPoint);
+                healthPointDisplay.setText("HealthPoint "+ monkey.healthPoint);
+                monkeyHealthBar.CurrentHealth(monkey.healthPoint);
 
                 if (monkey.getHealthPoint() <= 0){
                     battleDescription.append("\n 원수...우웅.... \n 원숭이 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1043,9 +1105,10 @@ public class MainDisplay extends JFrame{
             public void mousePressed(MouseEvent e) {
                 monkeySpecialAttack.setBackground(Color.gray);
                 attackEffect.launchEffect();
+                attackEffect.launchEffectExtra();
                 battleDescription.append("\n 열매를 던집니다!" + "\n 곰에게 "+ monkey.throwFruit()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-monkey.throwFruit());
-                enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
+                enemyHealthPointDisplay.setText("HealthPoint "+ bear.getHealthPoint());
             }
 
             @Override
@@ -1053,7 +1116,8 @@ public class MainDisplay extends JFrame{
                 monkeySpecialAttack.setBackground(Color.black);
                 battleDescription.append("\n 곰이 반격합니다! " + bear.strength +"의 데미지를 입었습니다.");
                 monkey.setHealthPoint(monkey.healthPoint - bear.strength);
-                healthPointDisplay.setText("HealthPoint :"+ monkey.healthPoint);
+                healthPointDisplay.setText("HealthPoint "+ monkey.healthPoint);
+                monkeyHealthBar.CurrentHealth(monkey.healthPoint);
 
                 if (monkey.getHealthPoint() <= 0){
                     battleDescription.append("\n 원수...우웅.... \n 원숭이 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1117,10 +1181,12 @@ public class MainDisplay extends JFrame{
                 aligator.healthPoint += teamHPIncrease;
 
                 battleDescription.append("\n 곰이 베어너클을 시전합니다! \n " + bear.bearKnuckle()+"의 데미지로 공격합니다.");
+                attackEffect.launchEffectExtra();
                 battleDescription.append("\n 원숭이 캐릭터가 " + bear.bearKnuckle() +"의 데미지를 받습니다.");
                 monkey.setHealthPoint(monkey.healthPoint - bear.bearKnuckle());
 
-                healthPointDisplay.setText("HealthPoint :"+ monkey.healthPoint);
+                healthPointDisplay.setText("HealthPoint "+ monkey.healthPoint);
+                monkeyHealthBar.CurrentHealth(monkey.healthPoint);
 
                 if (monkey.getHealthPoint() <= 0){
                     battleDescription.append("\n 원수...우웅.... \n 원숭이 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1169,6 +1235,7 @@ public class MainDisplay extends JFrame{
                 monkeyWithDraw.setBackground(Color.gray);
                 battleDescription.append("\n 소중한 원숭이를 위해 기권합니다. \n 다른 캐릭터를 골라주세요.");
 
+                monkeyHealthBar.monkeyHealthBar.setVisible(false);
                 monkeyIconLabel.setVisible(false);
                 monkeyBtn.setVisible(false);
                 monkeySkill.setVisible(false);
@@ -1235,6 +1302,11 @@ public class MainDisplay extends JFrame{
             monkeySkill.setVisible(false);
             alligatorSkill.setVisible(true);
 
+            catHealthBar.catHealthBar.setVisible(false);
+            dogHealthBar.dogHealthBar.setVisible(false);
+            monkeyHealthBar.monkeyHealthBar.setVisible(false);
+            alligatorHealthBar.alligatorHealthBar.setVisible(true);
+
             cat.agilityPortionBtn.setVisible(false);
             cat.healingPortionBtn.setVisible(false);
             dog.defensePortionBtn.setVisible(false);
@@ -1265,9 +1337,10 @@ public class MainDisplay extends JFrame{
             public void mousePressed(MouseEvent e) {
                 alligatorBasicAttack.setBackground(Color.gray);
                 attackEffect.launchEffect();
+                attackEffect.launchEffectExtra();
                 battleDescription.append("\n 일반 공격을 시전합니다!" + "\n 곰에게 "+ aligator.attack()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-aligator.attack());
-                enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
+                enemyHealthPointDisplay.setText("HealthPoint "+ bear.getHealthPoint());
             }
 
             @Override
@@ -1275,7 +1348,8 @@ public class MainDisplay extends JFrame{
                 alligatorBasicAttack.setBackground(Color.black);
                 battleDescription.append("\n 곰이 반격합니다! " + bear.strength +"의 데미지를 입었습니다.");
                 aligator.setHealthPoint(aligator.healthPoint - bear.strength);
-                healthPointDisplay.setText("HealthPoint :"+ aligator.healthPoint);
+                healthPointDisplay.setText("HealthPoint "+ aligator.healthPoint);
+                alligatorHealthBar.CurrentHealth(aligator.healthPoint);
 
                 if (aligator.getHealthPoint() <= 0){
                     battleDescription.append("\n 아..악...어...~~! \n 악어 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1323,9 +1397,10 @@ public class MainDisplay extends JFrame{
             public void mousePressed(MouseEvent e) {
                 alligatorSpecialAttack.setBackground(Color.gray);
                 attackEffect.launchEffect();
+                attackEffect.launchEffectExtra();
                 battleDescription.append("\n 꼬리로 후려칩니다!" + "\n 곰에게 "+ aligator.whipWithTail()+"의 데미지를 입힙니다.");
                 bear.setHealthPoint(bear.healthPoint-aligator.whipWithTail());
-                enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
+                enemyHealthPointDisplay.setText("HealthPoint "+ bear.getHealthPoint());
             }
 
             @Override
@@ -1333,7 +1408,8 @@ public class MainDisplay extends JFrame{
                 alligatorSpecialAttack.setBackground(Color.black);
                 battleDescription.append("\n 곰이 반격합니다! " + bear.strength +"의 데미지를 입었습니다.");
                 aligator.setHealthPoint(aligator.healthPoint - bear.strength);
-                healthPointDisplay.setText("HealthPoint :"+ aligator.healthPoint);
+                healthPointDisplay.setText("HealthPoint "+ aligator.healthPoint);
+                alligatorHealthBar.CurrentHealth(aligator.healthPoint);
 
                 if (aligator.getHealthPoint() <= 0){
                     battleDescription.append("\n 아..악...어...~~! \n 악어 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1389,7 +1465,7 @@ public class MainDisplay extends JFrame{
                 attackEffect.launchEffect();
                 battleDescription.append("\n 곰이 베어너클을 시전합니다! \n " + bear.bearKnuckle()+"의 데미지로 공격합니다. \n 반사하기로 인해 2배 데미지를 반사합니다.");
                 bear.setHealthPoint(bear.healthPoint - aligator.reflect(bear.bearKnuckle()));
-                enemyHealthPointDisplay.setText("HealthPoint :"+ bear.getHealthPoint());
+                enemyHealthPointDisplay.setText("HealthPoint "+ bear.getHealthPoint());
                 battleDescription.append("\n 곰이 " + aligator.reflect(bear.bearKnuckle()) +"의 데미지를 받습니다.");
 
                 if (aligator.getHealthPoint() <= 0){
@@ -1442,6 +1518,8 @@ public class MainDisplay extends JFrame{
                 alligatorWithDraw.setBackground(Color.gray);
                 battleDescription.append("\n 소중한 악어를 위해 기권합니다. \n 다른 캐릭터를 골라주세요.");
 
+                alligatorHealthBar.alligatorHealthBar.setVisible(false);
+
                 alligatorIconLabel.setVisible(false);
                 alligatorBtn.setVisible(false);
                 alligatorSkill.setVisible(false);
@@ -1483,6 +1561,8 @@ public class MainDisplay extends JFrame{
         cat.agilityPortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                statusPotionEffect.threadCount = 20;
+                statusPotionEffect.useEffect();
                 battleDescription.append("\n 민첩의 약을 사용합니다! \n 민첩이 5 증가합니다.");
                 agilityDisplay.setText("Agility "+ cat.agility);
             }
@@ -1512,8 +1592,8 @@ public class MainDisplay extends JFrame{
         cat.healingPortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                healEffect.threadCount = 20;
-                healEffect.HealEffect();
+                healthPotionEffect.threadCount = 20;
+                healthPotionEffect.useEffect();
                 battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
                 healthPointDisplay.setText("HealthPoint "+ cat.healthPoint);
             }
@@ -1544,6 +1624,8 @@ public class MainDisplay extends JFrame{
         dog.defensePortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                statusPotionEffect.threadCount = 20;
+                statusPotionEffect.useEffect();
                 battleDescription.append("\n 방어의 약을 사용합니다! \n 방어력이 5 증가합니다.");
                 defenseDisplay.setText("Defense "+ dog.defense);
             }
@@ -1572,8 +1654,8 @@ public class MainDisplay extends JFrame{
         dog.healingPortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                healEffect.threadCount = 20;
-                healEffect.HealEffect();
+                healthPotionEffect.threadCount = 20;
+                healthPotionEffect.useEffect();
                 battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
                 healthPointDisplay.setText("HealthPoint "+ dog.healthPoint);
             }
@@ -1604,6 +1686,8 @@ public class MainDisplay extends JFrame{
         monkey.wisdomPortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                statusPotionEffect.threadCount = 20;
+                statusPotionEffect.useEffect();
                 battleDescription.append("\n 지혜의 약을 사용합니다! \n 지혜력이 5 증가합니다.");
                 wisdomDisplay.setText("Wisdom "+ monkey.wisdom);
             }
@@ -1632,8 +1716,8 @@ public class MainDisplay extends JFrame{
         monkey.healingPortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                healEffect.threadCount = 20;
-                healEffect.HealEffect();
+                healthPotionEffect.threadCount = 20;
+                healthPotionEffect.useEffect();
                 battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
                 healthPointDisplay.setText("HealthPoint "+monkey.healthPoint);
             }
@@ -1664,6 +1748,8 @@ public class MainDisplay extends JFrame{
         aligator.viciousnessPortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                statusPotionEffect.threadCount = 20;
+                statusPotionEffect.useEffect();
                 battleDescription.append("\n 비열함의 약을 사용합니다! \n 비열함이 5 증가합니다.");
                 viciousnessDisplay.setText("Viciousness "+ aligator.viciousness);
             }
@@ -1691,8 +1777,8 @@ public class MainDisplay extends JFrame{
         aligator.healingPortionBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                healEffect.threadCount = 20;
-                healEffect.HealEffect();
+                healthPotionEffect.threadCount = 20;
+                healthPotionEffect.useEffect();
                 battleDescription.append("\n 체력 포션을 사용합니다! \n 체력이 30 증가합니다.");
                 healthPointDisplay.setText("HealthPoint "+aligator.healthPoint);
             }
@@ -1744,6 +1830,11 @@ public class MainDisplay extends JFrame{
                     monkeySkill.setVisible(false);
                     alligatorSkill.setVisible(false);
 
+                    catHealthBar.catHealthBar.setVisible(false);
+                    dogHealthBar.dogHealthBar.setVisible(false);
+                    monkeyHealthBar.monkeyHealthBar.setVisible(false);
+                    alligatorHealthBar.alligatorHealthBar.setVisible(false);
+
                     cat.healingPortionBtn.setVisible(false);
                     cat.agilityPortionBtn.setVisible(false);
                     dog.defensePortionBtn.setVisible(false);
@@ -1776,6 +1867,11 @@ public class MainDisplay extends JFrame{
 
                     totalScore.setVisible(false);
 
+                    catHealthBar.catHealthBar.setVisible(false);
+                    dogHealthBar.dogHealthBar.setVisible(false);
+                    monkeyHealthBar.monkeyHealthBar.setVisible(false);
+                    alligatorHealthBar.alligatorHealthBar.setVisible(false);
+
                     animalStatus.setVisible(false);
                     enemyStatus.setVisible(false);
                     bearIconLabel.setVisible(false);
@@ -1798,6 +1894,11 @@ public class MainDisplay extends JFrame{
                     monkeySkill.setVisible(false);
                     alligatorSkill.setVisible(false);
 
+                    catHealthBar.catHealthBar.setVisible(false);
+                    dogHealthBar.dogHealthBar.setVisible(false);
+                    monkeyHealthBar.monkeyHealthBar.setVisible(false);
+                    alligatorHealthBar.alligatorHealthBar.setVisible(false);
+
                     cat.healingPortionBtn.setVisible(false);
                     cat.agilityPortionBtn.setVisible(false);
                     dog.defensePortionBtn.setVisible(false);
@@ -1819,58 +1920,58 @@ public class MainDisplay extends JFrame{
         endingTimer.schedule(endingTimerTask,0,1000); // 태스크발동, 0ms 즉시 실행, 1000ms 매구간 실행
 
         //폰트
-        Font basicFontFourTeen = new Font("맑은 고딕", Font.BOLD,14);
-        Font notoSansBoldFourteen = new Font("Noto Sans KR", Font.BOLD,14);
-        Font notoSansBoldSixteen = new Font("Noto Sans KR", Font.BOLD,16);
-        Font notoSansBoldTwenty = new Font("Noto Sans KR", Font.BOLD,20);
+        Font mapleStoryLightSixteen = new Font("메이플스토리 Light",Font.PLAIN,16);
+        Font mapleStoryLightTwenty = new Font("메이플스토리 Light",Font.PLAIN,20);
+        Font mapleStoryBoldTwenty = new Font("메이플스토리 Bold",Font.BOLD,20);
+        Font mapleStoryBoldTwentyFour = new Font("메이플스토리 Bold",Font.BOLD,24);
 
-        startButton.setFont(notoSansBoldTwenty);
-        gameDescriptionButton.setFont(notoSansBoldTwenty);
-        gameDescriptionText.setFont(notoSansBoldTwenty);
-        battleDescription.setFont(notoSansBoldSixteen);
-        battleTime.setFont(basicFontFourTeen);
-        totalScore.setFont(notoSansBoldFourteen);
-        lastScore.setFont(notoSansBoldTwenty);
+        startButton.setFont(mapleStoryBoldTwentyFour);
+        gameDescriptionButton.setFont(mapleStoryBoldTwentyFour);
+        gameDescriptionText.setFont(mapleStoryLightTwenty);
+        battleDescription.setFont(mapleStoryLightTwenty);
+        battleTime.setFont(mapleStoryBoldTwenty);
+        totalScore.setFont(mapleStoryBoldTwentyFour);
+        lastScore.setFont(mapleStoryBoldTwentyFour);
 
-        strengthDisplay.setFont(notoSansBoldFourteen);
-        healthPointDisplay.setFont(notoSansBoldFourteen);
-        agilityDisplay.setFont(notoSansBoldFourteen);
-        defenseDisplay.setFont(notoSansBoldFourteen);
-        wisdomDisplay.setFont(notoSansBoldFourteen);
-        viciousnessDisplay.setFont(notoSansBoldFourteen);
+        strengthDisplay.setFont(mapleStoryLightSixteen);
+        healthPointDisplay.setFont(mapleStoryLightSixteen);
+        agilityDisplay.setFont(mapleStoryLightSixteen);
+        defenseDisplay.setFont(mapleStoryLightSixteen);
+        wisdomDisplay.setFont(mapleStoryLightSixteen);
+        viciousnessDisplay.setFont(mapleStoryLightSixteen);
 
-        enemyStrengthDisplay.setFont(notoSansBoldFourteen);
-        enemyHealthPointDisplay.setFont(notoSansBoldFourteen);
+        enemyStrengthDisplay.setFont(mapleStoryLightSixteen);
+        enemyHealthPointDisplay.setFont(mapleStoryLightSixteen);
 
-        catBtn.setFont(notoSansBoldFourteen);
-        dogBtn.setFont(notoSansBoldFourteen);
-        monkeyBtn.setFont(notoSansBoldFourteen);
-        alligatorBtn.setFont(notoSansBoldFourteen);
+        catBtn.setFont(mapleStoryBoldTwenty);
+        dogBtn.setFont(mapleStoryBoldTwenty);
+        monkeyBtn.setFont(mapleStoryBoldTwenty);
+        alligatorBtn.setFont(mapleStoryBoldTwenty);
 
-        catBasicAttack.setFont(notoSansBoldFourteen);
-        catSpecialAttack.setFont(notoSansBoldFourteen);
-        catUltimateAttack.setFont(notoSansBoldFourteen);
-        catWithDraw.setFont(notoSansBoldFourteen);
-        dogBasicAttack.setFont(notoSansBoldFourteen);
-        dogSpecialAttack.setFont(notoSansBoldFourteen);
-        dogUltimateAttack.setFont(notoSansBoldFourteen);
-        dogWithDraw.setFont(notoSansBoldFourteen);
-        monkeyBasicAttack.setFont(notoSansBoldFourteen);
-        monkeySpecialAttack.setFont(notoSansBoldFourteen);
-        monkeyUltimateAttack.setFont(notoSansBoldFourteen);
-        monkeyWithDraw.setFont(notoSansBoldFourteen);
-        alligatorBasicAttack.setFont(notoSansBoldFourteen);
-        alligatorSpecialAttack.setFont(notoSansBoldFourteen);
-        alligatorUltimateAttack.setFont(notoSansBoldFourteen);
-        alligatorWithDraw.setFont(notoSansBoldFourteen);
+        catBasicAttack.setFont(mapleStoryBoldTwenty);
+        catSpecialAttack.setFont(mapleStoryBoldTwenty);
+        catUltimateAttack.setFont(mapleStoryBoldTwenty);
+        catWithDraw.setFont(mapleStoryBoldTwenty);
+        dogBasicAttack.setFont(mapleStoryBoldTwenty);
+        dogSpecialAttack.setFont(mapleStoryBoldTwenty);
+        dogUltimateAttack.setFont(mapleStoryBoldTwenty);
+        dogWithDraw.setFont(mapleStoryBoldTwenty);
+        monkeyBasicAttack.setFont(mapleStoryBoldTwenty);
+        monkeySpecialAttack.setFont(mapleStoryBoldTwenty);
+        monkeyUltimateAttack.setFont(mapleStoryBoldTwenty);
+        monkeyWithDraw.setFont(mapleStoryBoldTwenty);
+        alligatorBasicAttack.setFont(mapleStoryBoldTwenty);
+        alligatorSpecialAttack.setFont(mapleStoryBoldTwenty);
+        alligatorUltimateAttack.setFont(mapleStoryBoldTwenty);
+        alligatorWithDraw.setFont(mapleStoryBoldTwenty);
 
         // UI 컬러
         gameIntroBtn.setBackground(Color.white);                                                                        //버튼 밖 프레임 채색 목적
         lastScore.setForeground(Color.white);
         rectangleFrame.setBackground(new Color(0,0,0,0));
 
-        animalStatus.setBackground(Color.white);
-        enemyStatus.setBackground(Color.white);
+        animalStatus.setOpaque(false);
+        enemyStatus.setOpaque(false);
 
         characters.setBackground(new Color(0,0,0,0));
         catSkill.setBackground(new Color(0,0,0,0));
@@ -1945,11 +2046,12 @@ public class MainDisplay extends JFrame{
         gameOverScreen.setBounds(0,0,600,800);
         gameVictoryScreen.setBounds(0,0,600,800);
         rectangleFrame.setBounds(0,0,600,800);
-        battleTime.setBounds(260,-20,100,100);
-        totalScore.setBounds(20,-170,400,400);
+        battleTime.setBounds(60,-20,100,100);
+        totalScore.setBounds(240,-170,400,400);
         lastScore.setBounds(165,200,600,200);
-        attackEffect.setBounds(200,-20,800,600);
-        healEffect.setBounds(-60,20,300,300);
+        attackEffect.setBounds(0,-20,800,600);
+        healthPotionEffect.setBounds(-60,20,300,300);
+        statusPotionEffect.setBounds(-60,20,400,400);
         lifeLabelOne.setBounds(25,380,30,30);
         lifeLabelTwo.setBounds(45,380,30,30);
         lifeLabelThree.setBounds(65,380,30,30);
@@ -1960,13 +2062,13 @@ public class MainDisplay extends JFrame{
         alligatorIconLabel.setBounds(20,60,300,300);
         bearIconLabel.setBounds(360,-110,600,600);
         animalStatus.setBounds(25,320,140,100);
-        enemyStatus.setBounds(440,20,130,40);
+        enemyStatus.setBounds(420,20,150,40);
         characters.setBounds(0,500,600,100);
         catSkill.setBounds(0,600,600,100);
         dogSkill.setBounds(0,600,600,100);
         monkeySkill.setBounds(0,600,600,100);
         alligatorSkill.setBounds(0,600,600,100);
-        battleDescriptionScroll.setBounds(150,305,400,140);
+        battleDescriptionScroll.setBounds(160,305,400,140);
         openingScreen.setBounds(0,0,600,800);
 
         // 초기 UI 설정
@@ -1986,6 +2088,10 @@ public class MainDisplay extends JFrame{
         dogSkill.setVisible(false);
         monkeySkill.setVisible(false);
         alligatorSkill.setVisible(false);
+        catHealthBar.catHealthBar.setVisible(false);
+        dogHealthBar.dogHealthBar.setVisible(false);
+        monkeyHealthBar.monkeyHealthBar.setVisible(false);
+        alligatorHealthBar.alligatorHealthBar.setVisible(false);
         cat.agilityPortionBtn.setVisible(false);
         cat.healingPortionBtn.setVisible(false);
         dog.defensePortionBtn.setVisible(false);
@@ -1999,6 +2105,8 @@ public class MainDisplay extends JFrame{
         setTitle("베어 헌트");
         setVisible(true); // setVisible 함수가 화면설정 이전으로 가게되면 화면 구성이전의 화면들은 보여지지 않음
 
+        System.identityHashCode(cat.getHealthPoint());
+
         // Exit 시 프로그램 종료
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -2009,3 +2117,7 @@ public class MainDisplay extends JFrame{
     }
 
 }
+
+
+
+
