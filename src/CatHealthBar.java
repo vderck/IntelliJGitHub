@@ -7,7 +7,7 @@ public class CatHealthBar implements Runnable {
     JProgressBar catHealthBar = new JProgressBar();
 
     public CatHealthBar() {
-        catHealthBar.setBackground(Color.green);
+        catHealthBar.setBackground(Color.pink);
         catHealthBar.setBounds(20,100,150,30);
     }
 

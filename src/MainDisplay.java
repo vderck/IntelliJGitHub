@@ -135,6 +135,12 @@ public class MainDisplay extends JFrame{
         alligatorHealthBarThread.start();
 
         //적군 체력바
+        BearHealthBar bearHealthBar = new BearHealthBar();
+        add(bearHealthBar.bearHealthBar);
+
+        Thread bearHealthbarThread = new Thread(bearHealthBar);
+        bearHealthbarThread.start();
+        
 
         //공격 이펙트
         AttackEffect attackEffect = new AttackEffect();                                                                 //실행시 attackEffect.launchEffect() 로 실행
@@ -355,7 +361,7 @@ public class MainDisplay extends JFrame{
         aligator.healingPortionBtn.setBounds(160,700,120,40);
 
         //전투 시간 타이머
-        JLabel battleTime = new JLabel("180 초");
+        JLabel battleTime = new JLabel("360 초");
 
         add(battleTime);
         //전투 통합 프레임
@@ -387,6 +393,7 @@ public class MainDisplay extends JFrame{
             lifeLabelThree.setVisible(true);
             lifeLabelFour.setVisible(true);
 
+            bearHealthBar.bearHealthBar.setVisible(true);
             animalStatus.setVisible(true);
             enemyStatus.setVisible(true);
             battleDescriptionScroll.setVisible(true);
@@ -475,6 +482,8 @@ public class MainDisplay extends JFrame{
                 healthPointDisplay.setText("HealthPoint "+ cat.healthPoint);
                 catHealthBar.CurrentHealth(cat.healthPoint);
 
+                bearHealthBar.CurrentHealth(bear.healthPoint);
+
                 if (cat.getHealthPoint() <= 0){
                     battleDescription.append("\n 야아아아옹~~! \n 고양이 캐릭터가 장렬하게 사망했습니다! \n 다른 캐릭터를 골라주세요.");
 
@@ -536,6 +545,7 @@ public class MainDisplay extends JFrame{
                 cat.setHealthPoint(cat.healthPoint - bear.strength);
                 healthPointDisplay.setText("HealthPoint "+ cat.healthPoint);
                 catHealthBar.CurrentHealth(cat.healthPoint);
+                bearHealthBar.CurrentHealth(bear.healthPoint);
 
                 if (cat.getHealthPoint() <= 0){
                     battleDescription.append("\n 야아아아옹~~! \n 고양이 캐릭터가 장렬하게 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -772,6 +782,7 @@ public class MainDisplay extends JFrame{
                 dog.setHealthPoint(dog.healthPoint - bear.strength);
                 healthPointDisplay.setText("HealthPoint "+ dog.healthPoint);
                 dogHealthBar.CurrentHealth(dog.healthPoint);
+                bearHealthBar.CurrentHealth(bear.healthPoint);
 
                 if (dog.getHealthPoint() <= 0){
                     battleDescription.append("\n 깨개갱 깨개갱~~! \n 강아지 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -833,6 +844,7 @@ public class MainDisplay extends JFrame{
                 dog.setHealthPoint(dog.healthPoint - bear.strength);
                 healthPointDisplay.setText("HealthPoint "+ dog.healthPoint);
                 dogHealthBar.CurrentHealth(dog.healthPoint);
+                bearHealthBar.CurrentHealth(bear.healthPoint);
 
                 if (dog.getHealthPoint() <= 0){
                     battleDescription.append("\n 깨개갱 깨개갱~~! \n 강아지 캐릭터가 비참히 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1056,6 +1068,7 @@ public class MainDisplay extends JFrame{
                 monkey.setHealthPoint(monkey.healthPoint - bear.strength);
                 healthPointDisplay.setText("HealthPoint "+ monkey.healthPoint);
                 monkeyHealthBar.CurrentHealth(monkey.healthPoint);
+                bearHealthBar.CurrentHealth(bear.healthPoint);
 
                 if (monkey.getHealthPoint() <= 0){
                     battleDescription.append("\n 원수...우웅.... \n 원숭이 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1118,6 +1131,7 @@ public class MainDisplay extends JFrame{
                 monkey.setHealthPoint(monkey.healthPoint - bear.strength);
                 healthPointDisplay.setText("HealthPoint "+ monkey.healthPoint);
                 monkeyHealthBar.CurrentHealth(monkey.healthPoint);
+                bearHealthBar.CurrentHealth(bear.healthPoint);
 
                 if (monkey.getHealthPoint() <= 0){
                     battleDescription.append("\n 원수...우웅.... \n 원숭이 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1186,7 +1200,10 @@ public class MainDisplay extends JFrame{
                 monkey.setHealthPoint(monkey.healthPoint - bear.bearKnuckle());
 
                 healthPointDisplay.setText("HealthPoint "+ monkey.healthPoint);
+                catHealthBar.CurrentHealth(cat.healthPoint);
+                dogHealthBar.CurrentHealth(dog.healthPoint);
                 monkeyHealthBar.CurrentHealth(monkey.healthPoint);
+                alligatorHealthBar.CurrentHealth(aligator.healthPoint);
 
                 if (monkey.getHealthPoint() <= 0){
                     battleDescription.append("\n 원수...우웅.... \n 원숭이 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1350,6 +1367,7 @@ public class MainDisplay extends JFrame{
                 aligator.setHealthPoint(aligator.healthPoint - bear.strength);
                 healthPointDisplay.setText("HealthPoint "+ aligator.healthPoint);
                 alligatorHealthBar.CurrentHealth(aligator.healthPoint);
+                bearHealthBar.CurrentHealth(bear.healthPoint);
 
                 if (aligator.getHealthPoint() <= 0){
                     battleDescription.append("\n 아..악...어...~~! \n 악어 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1410,6 +1428,7 @@ public class MainDisplay extends JFrame{
                 aligator.setHealthPoint(aligator.healthPoint - bear.strength);
                 healthPointDisplay.setText("HealthPoint "+ aligator.healthPoint);
                 alligatorHealthBar.CurrentHealth(aligator.healthPoint);
+                bearHealthBar.CurrentHealth(bear.healthPoint);
 
                 if (aligator.getHealthPoint() <= 0){
                     battleDescription.append("\n 아..악...어...~~! \n 악어 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1467,6 +1486,7 @@ public class MainDisplay extends JFrame{
                 bear.setHealthPoint(bear.healthPoint - aligator.reflect(bear.bearKnuckle()));
                 enemyHealthPointDisplay.setText("HealthPoint "+ bear.getHealthPoint());
                 battleDescription.append("\n 곰이 " + aligator.reflect(bear.bearKnuckle()) +"의 데미지를 받습니다.");
+                bearHealthBar.CurrentHealth(bear.healthPoint);
 
                 if (aligator.getHealthPoint() <= 0){
                     battleDescription.append("\n 아..악...어...~~! \n 악어 캐릭터가 사망했습니다! \n 다른 캐릭터를 골라주세요.");
@@ -1834,6 +1854,7 @@ public class MainDisplay extends JFrame{
                     dogHealthBar.dogHealthBar.setVisible(false);
                     monkeyHealthBar.monkeyHealthBar.setVisible(false);
                     alligatorHealthBar.alligatorHealthBar.setVisible(false);
+                    bearHealthBar.bearHealthBar.setVisible(false);
 
                     cat.healingPortionBtn.setVisible(false);
                     cat.agilityPortionBtn.setVisible(false);
@@ -1871,6 +1892,7 @@ public class MainDisplay extends JFrame{
                     dogHealthBar.dogHealthBar.setVisible(false);
                     monkeyHealthBar.monkeyHealthBar.setVisible(false);
                     alligatorHealthBar.alligatorHealthBar.setVisible(false);
+                    bearHealthBar.bearHealthBar.setVisible(false);
 
                     animalStatus.setVisible(false);
                     enemyStatus.setVisible(false);
@@ -2092,6 +2114,7 @@ public class MainDisplay extends JFrame{
         dogHealthBar.dogHealthBar.setVisible(false);
         monkeyHealthBar.monkeyHealthBar.setVisible(false);
         alligatorHealthBar.alligatorHealthBar.setVisible(false);
+        bearHealthBar.bearHealthBar.setVisible(false);
         cat.agilityPortionBtn.setVisible(false);
         cat.healingPortionBtn.setVisible(false);
         dog.defensePortionBtn.setVisible(false);

@@ -455,7 +455,7 @@ public class AttackEffect extends JComponent {
         launchEffectExtraComponentIntegration();
     }
 
-    public void launchEffectExtraComponentIntegration() {
+    public synchronized void launchEffectExtraComponentIntegration() {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
